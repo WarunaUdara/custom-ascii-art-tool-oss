@@ -10,6 +10,8 @@
     recordStatusText: string;
     onchange: (partial: Partial<EngineConfig>) => void;
     onExportPng: () => void;
+    onCopyAscii?: () => void;
+    onExportTxt?: () => void;
     onToggleVideoRecord: () => void;
   }
 
@@ -21,6 +23,8 @@
     recordStatusText,
     onchange,
     onExportPng,
+    onCopyAscii,
+    onExportTxt,
     onToggleVideoRecord,
   }: Props = $props();
 
@@ -294,13 +298,57 @@
 
   <!-- Actions -->
   <div class="actions-section">
+    <div class="export-label font-mono">EXPORT CHANNELS</div>
+
+    <div class="export-grid">
+      <!-- Copy ASCII Art to Clipboard -->
+      <button
+        type="button"
+        class="action-btn secondary font-pixel"
+        disabled={!hasMedia}
+        onclick={async () => {
+          if (onCopyAscii) onCopyAscii();
+        }}
+        title="Copy raw ASCII character matrix to clipboard"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect width="14" height="14" x="8" y="8" rx="0" ry="0"/>
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+        </svg>
+        <span>COPY ASCII</span>
+      </button>
+
+      <!-- Download .txt File -->
+      <button
+        type="button"
+        class="action-btn secondary font-pixel"
+        disabled={!hasMedia}
+        onclick={onExportTxt}
+        title="Download plain text .txt ASCII file"
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <span>SAVE .TXT</span>
+      </button>
+    </div>
+
+    <!-- Export PNG -->
     <button
       type="button"
       class="action-btn primary font-pixel"
       disabled={!hasMedia}
       onclick={onExportPng}
     >
-      EXPORT PNG
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      <span>EXPORT PNG</span>
     </button>
 
     {#if isVideo}
@@ -536,13 +584,32 @@
     margin-top: 4px;
   }
 
-  .action-btn {
+  .export-label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #71717a;
+    margin-bottom: 2px;
+  }
+
+  .export-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
     width: 100%;
-    padding: 10px;
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 8px;
     font-size: 11px;
     cursor: pointer;
     border: 1px solid transparent;
     transition: all 0.15s ease;
+    white-space: nowrap;
   }
 
   .action-btn.primary {
@@ -554,6 +621,18 @@
   .action-btn.primary:hover:not(:disabled) {
     background: #ffffff;
     box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+  }
+
+  .action-btn.secondary {
+    background: #111116;
+    color: #ededed;
+    border-color: #27272f;
+  }
+
+  .action-btn.secondary:hover:not(:disabled) {
+    background: #181820;
+    border-color: #ff5b35;
+    color: #ffffff;
   }
 
   .action-btn.record-btn {

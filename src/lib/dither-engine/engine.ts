@@ -12,7 +12,7 @@ import {
   hexToRgb,
 } from './quantizer';
 import { applyDithering } from './kernels';
-import { renderGridToCanvas, updateHoverInfluence } from './renderer';
+import { renderGridToCanvas, updateHoverInfluence, generateAsciiText } from './renderer';
 
 export class DitherEngine {
   private config: EngineConfig;
@@ -327,6 +327,46 @@ export class DitherEngine {
     link.href = this.outputCanvas.toDataURL('image/png');
     link.click();
     this.mouse = prevMouse;
+  }
+
+  /**
+   * Exports the current frame as a raw ASCII character plain text string.
+   */
+  public exportAsciiText(): string {
+    if (!this.grid || !this.levelsBuffer) return '';
+    return generateAsciiText(this.levelsBuffer, this.grid, this.config.ramp);
+  }
+
+  /**
+   * Copies the raw ASCII character string directly to the clipboard.
+   */
+  public async copyAsciiToClipboard(): Promise<boolean> {
+    const text = this.exportAsciiText();
+    if (!text) return false;
+    try {
+      if (navigator && navigator.clipboard) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Downloads the raw ASCII art as a .txt file.
+   */
+  public exportAsciiTxtFile(filename: string = 'dither-ascii.txt'): void {
+    const text = this.exportAsciiText();
+    if (!text) return;
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename.endsWith('.txt') ? filename : `${filename}.txt`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   public async startVideoRender(filename: string = 'dither-video'): Promise<void> {

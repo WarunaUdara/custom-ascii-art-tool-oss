@@ -90,6 +90,34 @@ export function renderGridToCanvas(opts: RenderOptions): void {
 }
 
 /**
+ * Generates raw multi-line ASCII plain text string from the current quantized levels buffer.
+ */
+export function generateAsciiText(
+  levels: Uint8Array,
+  dimensions: GridDimensions,
+  ramp: string
+): string {
+  const { cols, rows } = dimensions;
+  const activeRamp = ramp.length > 0 ? ramp : ' .:-=+*#%@';
+  const rampMaxIdx = activeRamp.length - 1;
+  const lines: string[] = [];
+
+  for (let r = 0; r < rows; r++) {
+    const rowOffset = r * cols;
+    let line = '';
+    for (let c = 0; c < cols; c++) {
+      const idx = rowOffset + c;
+      const lvl = levels[idx];
+      const rampIdx = Math.min(rampMaxIdx, Math.round((lvl / 6.0) * rampMaxIdx));
+      line += activeRamp[rampIdx] || ' ';
+    }
+    lines.push(line);
+  }
+
+  return lines.join('\n');
+}
+
+/**
  * Updates the hover influence float buffer based on mouse cursor distance.
  */
 export function updateHoverInfluence(

@@ -1,5 +1,6 @@
 ---
 import '../styles/custom.css';
+import PageTransitionOverlay from '../components/ui/PageTransitionOverlay.svelte';
 
 interface Props {
   title?: string;
@@ -132,6 +133,9 @@ const schemaData = {
       <main class="app-main">
         <slot />
       </main>
+
+      <!-- Global Cyber DotMatrix Page Navigation Loader -->
+      <PageTransitionOverlay client:load />
     </div>
   </body>
 </html>

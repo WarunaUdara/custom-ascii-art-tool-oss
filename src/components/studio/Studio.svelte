@@ -110,6 +110,23 @@
     engine?.exportPng(`${currentFileName}-dither.png`);
   }
 
+  async function handleCopyAscii() {
+    if (!engine) return;
+    const ok = await engine.copyAsciiToClipboard();
+    if (ok) {
+      recordStatusText = 'COPIED TO CLIPBOARD!';
+      setTimeout(() => {
+        if (recordStatusText === 'COPIED TO CLIPBOARD!') {
+          recordStatusText = '';
+        }
+      }, 2500);
+    }
+  }
+
+  function handleExportTxt() {
+    engine?.exportAsciiTxtFile(`${currentFileName}-dither.txt`);
+  }
+
   function handleToggleVideoRecord() {
     if (!engine) return;
     if (isRecording) {
@@ -168,6 +185,8 @@
         {recordStatusText}
         onchange={handleConfigChange}
         onExportPng={handleExportPng}
+        onCopyAscii={handleCopyAscii}
+        onExportTxt={handleExportTxt}
         onToggleVideoRecord={handleToggleVideoRecord}
       />
 
