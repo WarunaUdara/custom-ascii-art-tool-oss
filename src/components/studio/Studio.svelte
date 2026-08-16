@@ -9,7 +9,15 @@
   } from '../../lib/dither-engine';
   import ControlsPanel from './ControlsPanel.svelte';
   import CanvasStage from './CanvasStage.svelte';
+  import HeroSection from '../home/HeroSection.svelte';
 
+  interface Props {
+    initialView?: 'hero' | 'studio';
+  }
+
+  let { initialView = 'hero' }: Props = $props();
+
+  let activeView = $state<'hero' | 'studio'>(initialView);
   let canvasRef: HTMLCanvasElement | null = $state(null);
   let engine: DitherEngine | null = $state.raw(null);
 
@@ -38,8 +46,8 @@
     playbackRate: 1.0,
   });
 
-  onMount(() => {
-    if (canvasRef) {
+  function initEngine() {
+    if (canvasRef && !engine) {
       engine = new DitherEngine(
         canvasRef,
         config,
@@ -54,6 +62,16 @@
         }
       );
     }
+  }
+
+  onMount(() => {
+    initEngine();
+  });
+
+  $effect(() => {
+    if (activeView === 'studio' && canvasRef && !engine) {
+      initEngine();
+    }
   });
 
   onDestroy(() => {
@@ -65,7 +83,10 @@
   }
 
   async function handleFileSelected(file: File) {
+    activeView = 'studio';
+    if (!engine) initEngine();
     if (!engine) return;
+
     currentFileName = (file.name || 'output').replace(/\.[^.]+$/, '');
     const isVid =
       (file.type || '').startsWith('video/') ||
@@ -97,29 +118,133 @@
       engine.startVideoRender(`${currentFileName}-dither`);
     }
   }
+
+  function launchStudio() {
+    activeView = 'studio';
+  }
 </script>
 
-<div class="studio-wrapper">
-  <ControlsPanel
-    bind:config
-    {hasMedia}
-    {isVideo}
-    {isRecording}
-    {recordStatusText}
-    onchange={handleConfigChange}
-    onExportPng={handleExportPng}
-    onToggleVideoRecord={handleToggleVideoRecord}
-  />
+<div class="app-container">
+  <!-- View Toggle Header Bar -->
+  <div class="view-switch-bar">
+    <div class="switch-tabs">
+      <button
+        type="button"
+        class="tab-btn font-pixel"
+        class:active={activeView === 'hero'}
+        onclick={() => (activeView = 'hero')}
+      >
+        OVERVIEW
+      </button>
+      <button
+        type="button"
+        class="tab-btn font-pixel"
+        class:active={activeView === 'studio'}
+        onclick={() => (activeView = 'studio')}
+      >
+        STUDIO WORKSPACE
+      </button>
+    </div>
 
-  <CanvasStage
-    bind:canvasRef
-    {hasMedia}
-    {stats}
-    onFileSelected={handleFileSelected}
-  />
+    {#if activeView === 'studio'}
+      <div class="workspace-hint font-mono">
+        DRAG & DROP IMAGE OR VIDEO TO BEGIN
+      </div>
+    {/if}
+  </div>
+
+  <div class="main-viewport">
+    {#if activeView === 'hero'}
+      <HeroSection onLaunchStudio={launchStudio} />
+    {/if}
+
+    <!-- Always keep the Studio workspace mounted in background or active to preserve canvas memory -->
+    <div class="studio-wrapper" class:hidden={activeView !== 'studio'}>
+      <ControlsPanel
+        bind:config
+        {hasMedia}
+        {isVideo}
+        {isRecording}
+        {recordStatusText}
+        onchange={handleConfigChange}
+        onExportPng={handleExportPng}
+        onToggleVideoRecord={handleToggleVideoRecord}
+      />
+
+      <CanvasStage
+        bind:canvasRef
+        {hasMedia}
+        {stats}
+        onFileSelected={handleFileSelected}
+      />
+    </div>
+  </div>
 </div>
 
 <style>
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    background: #000000;
+    overflow: hidden;
+  }
+
+  .view-switch-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 36px;
+    min-height: 36px;
+    background: #09090c;
+    border-bottom: 1px solid #1a1a22;
+    z-index: 50;
+  }
+
+  .switch-tabs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #71717a;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .tab-btn:hover {
+    color: #ededed;
+  }
+
+  .tab-btn.active {
+    background: #18181b;
+    border-color: #27272a;
+    color: #ff5b35;
+    font-weight: 700;
+  }
+
+  .workspace-hint {
+    font-size: 9px;
+    color: #52525b;
+    letter-spacing: 0.04em;
+  }
+
+  .main-viewport {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
   .studio-wrapper {
     display: flex;
     width: 100%;
@@ -129,12 +254,19 @@
     overflow: hidden;
   }
 
+  .studio-wrapper.hidden {
+    display: none;
+  }
+
   @media (max-width: 768px) {
     .studio-wrapper {
       flex-direction: column;
       height: auto;
       min-height: 100%;
       overflow-y: auto;
+    }
+    .workspace-hint {
+      display: none;
     }
   }
 </style>

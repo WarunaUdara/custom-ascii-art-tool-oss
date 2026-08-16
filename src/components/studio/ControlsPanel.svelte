@@ -43,12 +43,6 @@
 </script>
 
 <div class="controls-panel">
-  <!-- L-shaped corner intersection brackets -->
-  <span class="corner-bracket tl">┌</span>
-  <span class="corner-bracket tr">┐</span>
-  <span class="corner-bracket bl">└</span>
-  <span class="corner-bracket br">┘</span>
-
   <div class="panel-header">
     <div class="title-group">
       <h2 class="pixel-heading">DITHER ENGINE</h2>

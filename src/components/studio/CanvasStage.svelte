@@ -48,12 +48,6 @@
   role="region"
   aria-label="Canvas Stage Viewport"
 >
-  <!-- L-shaped corner intersection brackets -->
-  <span class="corner-bracket tl">┌</span>
-  <span class="corner-bracket tr">┐</span>
-  <span class="corner-bracket bl">└</span>
-  <span class="corner-bracket br">┘</span>
-
   <input
     type="file"
     accept="image/*,video/*"
@@ -71,11 +65,6 @@
       role="button"
       aria-label="Upload Image or Video"
     >
-      <span class="corner-bracket tl">┌</span>
-      <span class="corner-bracket tr">┐</span>
-      <span class="corner-bracket bl">└</span>
-      <span class="corner-bracket br">┘</span>
-
       <div class="drop-icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
@@ -95,27 +84,22 @@
 
   {#if hasMedia && stats}
     <div class="telemetry-hud font-mono">
-      <span class="corner-bracket tl">┌</span>
-      <span class="corner-bracket tr">┐</span>
-      <span class="corner-bracket bl">└</span>
-      <span class="corner-bracket br">┘</span>
-
-      <div class="hud-item">
+      <div class="hud-item grid-metric">
         <span class="hud-label">GRID</span>
         <span class="hud-value">{stats.cols}×{stats.rows}</span>
       </div>
       <span class="hud-divider">|</span>
-      <div class="hud-item">
+      <div class="hud-item cells-metric">
         <span class="hud-label">CELLS</span>
         <span class="hud-value">{stats.totalCells.toLocaleString()}</span>
       </div>
       <span class="hud-divider">|</span>
-      <div class="hud-item">
+      <div class="hud-item latency-metric">
         <span class="hud-label">LATENCY</span>
-        <span class="hud-value">{stats.renderTimeMs}ms</span>
+        <span class="hud-value">{stats.renderTimeMs.toFixed(1)}ms</span>
       </div>
       <span class="hud-divider">|</span>
-      <div class="hud-item">
+      <div class="hud-item rate-metric">
         <span class="hud-label">RATE</span>
         <span class="hud-value highlight">{stats.fps} FPS</span>
       </div>
@@ -209,6 +193,7 @@
     cursor: crosshair;
   }
 
+  /* Telemetry HUD with fixed slot widths to prevent resize jitter */
   .telemetry-hud {
     position: absolute;
     bottom: 20px;
@@ -217,7 +202,7 @@
     background: rgba(9, 9, 11, 0.95);
     backdrop-filter: blur(12px);
     border: 1px solid #27272a;
-    padding: 8px 18px;
+    padding: 8px 16px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -225,27 +210,50 @@
     color: #a1a1aa;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
     z-index: 20;
-    position: absolute;
+    white-space: nowrap;
+    user-select: none;
+    font-variant-numeric: tabular-nums;
   }
 
   .hud-item {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+  }
+
+  /* Fixed slot widths for each metric item */
+  .grid-metric {
+    min-width: 95px;
+  }
+
+  .cells-metric {
+    min-width: 90px;
+  }
+
+  .latency-metric {
+    min-width: 95px;
+  }
+
+  .rate-metric {
+    min-width: 85px;
   }
 
   .hud-label {
     color: #52525b;
     font-size: 9px;
+    font-weight: 500;
   }
 
   .hud-value {
     color: #ededed;
     font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
   }
 
   .hud-value.highlight {
     color: #22c55e;
+    font-weight: 600;
   }
 
   .hud-divider {
