@@ -1,0 +1,23 @@
+---
+title: Interactive Studio
+description: Real-time Dither, Jitter & ASCII art generation playground powered by Svelte 5 and Canvas 2D.
+template: splash
+---
+
+import Studio from '../../components/studio/Studio.svelte';
+
+<div class="full-studio-embed">
+  <Studio client:only="svelte" />
+</div>
+
+<style>{`
+  .full-studio-embed {
+    margin: -2rem -1.5rem;
+    min-height: calc(100vh - 4rem);
+  }
+  @media (min-width: 50rem) {
+    .full-studio-embed {
+      margin: -2rem -2.5rem;
+    }
+  }
+`}</style>
