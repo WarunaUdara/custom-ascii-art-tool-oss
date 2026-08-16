@@ -31,14 +31,6 @@
       desc: 'Fine-grained signal reactivity bypassing Virtual DOM diffing for 120Hz slider updates.',
     },
   ];
-
-  function handleLaunch() {
-    if (onLaunchStudio) {
-      onLaunchStudio();
-    } else if (typeof window !== 'undefined') {
-      window.location.href = `${baseUrl}/studio/`;
-    }
-  }
 </script>
 
 <section class="hero-section">
@@ -57,17 +49,18 @@
     <!-- Main Headline with Decrypted Text & Geist Pixel Font -->
     <div class="headline-wrapper">
       <h1 class="main-title font-pixel">
-        <DecryptedText
-          text="ASCII & DITHER"
-          speed={40}
-          sequential={true}
-          animateOn="both"
-        />
-        <br />
-        <span class="accent-title">
+        <span class="title-line">
+          <DecryptedText
+            text="ASCII & DITHER"
+            speed={35}
+            sequential={true}
+            animateOn="both"
+          />
+        </span>
+        <span class="title-line accent-title">
           <DecryptedText
             text="STUDIO ENGINE"
-            speed={40}
+            speed={35}
             sequential={true}
             animateOn="both"
           />
@@ -178,6 +171,7 @@
     font-size: 11px;
     color: #a1a1aa;
     letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 
   .pulse-dot {
@@ -185,18 +179,31 @@
     height: 6px;
     background: #ff5b35;
     box-shadow: 0 0 8px rgba(255, 91, 53, 0.8);
+    flex-shrink: 0;
   }
 
   .headline-wrapper {
     margin: 6px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .main-title {
-    font-size: clamp(32px, 6vw, 64px);
-    line-height: 1.05;
+    font-size: clamp(28px, 5.5vw, 60px);
+    line-height: 1.1;
     color: #ffffff;
     letter-spacing: 0.02em;
     font-weight: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .title-line {
+    display: block;
+    white-space: nowrap;
   }
 
   .accent-title {
@@ -229,6 +236,7 @@
     border: 1px solid transparent;
     text-decoration: none;
     transition: all 0.15s ease;
+    white-space: nowrap;
   }
 
   .cta-btn.primary {
@@ -290,6 +298,7 @@
     font-size: 12px;
     color: #ededed;
     letter-spacing: 0.04em;
+    white-space: nowrap;
   }
 
   .card-desc {

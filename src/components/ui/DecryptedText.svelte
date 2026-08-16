@@ -99,7 +99,6 @@
     intervalId = setInterval(() => {
       if (sequential) {
         if (pointer < order.length) {
-          // Reveal 1-2 characters per tick for crisp pace
           const idx = order[pointer];
           currentRevealed.add(idx);
           pointer++;
@@ -157,9 +156,13 @@
   <span class="sr-only">{text}</span>
   <span aria-hidden="true" class="letters-wrapper">
     {#each displayText.split('') as char, i}
-      <span
-        class="char-glyph {revealedIndices.has(i) || (!isAnimating && isDecrypted) ? className : `encrypted ${encryptedClass}`}"
-      >{char}</span>
+      {#if char === ' '}
+        <span class="char-space">&nbsp;</span>
+      {:else}
+        <span
+          class="char-glyph {revealedIndices.has(i) || (!isAnimating && isDecrypted) ? className : `encrypted ${encryptedClass}`}"
+        >{char}</span>
+      {/if}
     {/each}
   </span>
 </span>
@@ -170,17 +173,38 @@
     cursor: default;
     user-select: none;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .letters-wrapper {
-    display: inline;
-    white-space: pre-wrap;
+    display: inline-flex;
+    align-items: baseline;
+    white-space: nowrap;
   }
 
   .char-glyph {
     display: inline-block;
     font-variant-numeric: tabular-nums;
-    transition: color 0.1s ease;
+    min-width: 1ch;
+    text-align: center;
+    transition: color 0.08s ease;
+  }
+
+  .char-space {
+    display: inline-block;
+    width: 0.5ch;
   }
 
   .char-glyph.encrypted {

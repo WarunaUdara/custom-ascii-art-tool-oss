@@ -100,6 +100,19 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Screen reader utility (hidden visually, accessible to screen readers) */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 /* Utility font classes */
 .font-pixel {
   font-family: var(--font-pixel);
@@ -117,27 +130,6 @@ html, body {
 .font-sans {
   font-family: var(--font-sans);
 }
-
-/* ============================================================
-   L-SHAPED CORNER INTERSECTION BRACKETS (┌ ┐ └ ┘)
-   ============================================================ */
-
-.corner-bracket {
-  position: absolute;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1;
-  color: #52525b;
-  pointer-events: none;
-  z-index: 15;
-  user-select: none;
-  font-weight: normal;
-}
-
-.corner-bracket.tl { top: 4px; left: 4px; }
-.corner-bracket.tr { top: 4px; right: 4px; }
-.corner-bracket.bl { bottom: 4px; left: 4px; }
-.corner-bracket.br { bottom: 4px; right: 4px; }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
