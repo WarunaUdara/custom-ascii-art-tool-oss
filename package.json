@@ -1,5 +1,5 @@
 {
-  "name": "blue-binary",
+  "name": "custom-ascii-art-tool-oss",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -13,6 +13,7 @@
     "@astrojs/starlight": "^0.41.7",
     "@astrojs/svelte": "^9.0.1",
     "astro": "^7.1.6",
+    "geist": "^1.7.2",
     "sharp": "^0.35.3",
     "svelte": "^5.56.9"
   }
