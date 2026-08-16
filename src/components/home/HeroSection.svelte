@@ -123,14 +123,15 @@
   .hero-section {
     position: relative;
     width: 100%;
-    height: 100%;
-    min-height: 100%;
+    min-height: calc(100vh - 44px);
     background: #000000;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 32px 24px;
-    overflow-y: auto;
+    padding: 48px 24px;
+    box-sizing: border-box;
+    margin: 0 auto;
   }
 
   .grid-backdrop {
@@ -146,19 +147,21 @@
 
   .hero-content {
     position: relative;
-    max-width: 980px;
+    max-width: 960px;
     width: 100%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 20px;
+    gap: 22px;
     z-index: 10;
   }
 
   .system-badge-row {
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 
   .system-badge {
@@ -183,27 +186,35 @@
   }
 
   .headline-wrapper {
-    margin: 6px 0;
+    margin: 4px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    text-align: center;
   }
 
   .main-title {
-    font-size: clamp(28px, 5.5vw, 60px);
-    line-height: 1.1;
+    font-size: clamp(28px, 5vw, 56px);
+    line-height: 1.15;
     color: #ffffff;
     letter-spacing: 0.02em;
     font-weight: 900;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    gap: 6px;
   }
 
   .title-line {
-    display: block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     white-space: nowrap;
+    text-align: center;
   }
 
   .accent-title {
@@ -217,13 +228,17 @@
     line-height: 1.6;
     color: #8b8b93;
     letter-spacing: -0.01em;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .hero-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    margin: 10px 0 16px;
+    margin: 8px 0 16px;
+    width: 100%;
   }
 
   .cta-btn {

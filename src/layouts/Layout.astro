@@ -280,7 +280,11 @@ const schemaData = {
   .app-main {
     flex: 1;
     display: flex;
-    overflow: hidden;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 44px);
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
   }
 
