@@ -1,11 +1,15 @@
 <script lang="ts">
   import DecryptedText from '../ui/DecryptedText.svelte';
+  import DitherWaves from './DitherWaves.svelte';
+  import CustomDock from '../ui/CustomDock.svelte';
 
   interface Props {
     onLaunchStudio?: () => void;
   }
 
   let { onLaunchStudio }: Props = $props();
+
+  let disableWaves = $state(false);
 
   const baseUrl = (typeof window !== 'undefined' ? (window as any).__ASTRO_BASE_URL__ : '') || '/custom-ascii-art-tool-oss';
 
@@ -31,10 +35,27 @@
       desc: 'Fine-grained signal reactivity bypassing Virtual DOM diffing for 120Hz slider updates.',
     },
   ];
+
+  function toggleWaves() {
+    disableWaves = !disableWaves;
+  }
 </script>
 
 <section class="hero-section">
-  <!-- Subtle Background Grid Pattern -->
+  <!-- Interactive WebGL Dither Waves Background Animation -->
+  <DitherWaves
+    waveSpeed={0.045}
+    waveFrequency={2.4}
+    waveAmplitude={0.32}
+    waveColor={[1.0, 0.357, 0.208]}
+    colorNum={4.0}
+    pixelSize={2.2}
+    disableAnimation={disableWaves}
+    enableMouseInteraction={true}
+    mouseRadius={0.4}
+  />
+
+  <!-- Subtle Background Grid Pattern Overlay -->
   <div class="grid-backdrop"></div>
 
   <div class="hero-content">
@@ -117,6 +138,9 @@
       {/each}
     </div>
   </div>
+
+  <!-- Customized Floating Dock -->
+  <CustomDock onToggleWaves={toggleWaves} isStudioRoute={false} />
 </section>
 
 <style>
@@ -129,20 +153,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 48px 24px;
+    padding: 48px 24px 80px;
     box-sizing: border-box;
     margin: 0 auto;
+    overflow: hidden;
   }
 
   .grid-backdrop {
     position: absolute;
     inset: 0;
     background-image: 
-      linear-gradient(to right, #111116 1px, transparent 1px),
-      linear-gradient(to bottom, #111116 1px, transparent 1px);
+      linear-gradient(to right, #14141a 1px, transparent 1px),
+      linear-gradient(to bottom, #14141a 1px, transparent 1px);
     background-size: 32px 32px;
-    opacity: 0.6;
+    opacity: 0.45;
     pointer-events: none;
+    z-index: 2;
   }
 
   .hero-content {
@@ -169,7 +195,9 @@
     align-items: center;
     gap: 8px;
     padding: 4px 12px;
-    background: #09090c;
+    background: rgba(9, 9, 12, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid #22222a;
     font-size: 11px;
     color: #a1a1aa;
@@ -219,17 +247,18 @@
 
   .accent-title {
     color: #ff5b35;
-    text-shadow: 0 0 32px rgba(255, 91, 53, 0.25);
+    text-shadow: 0 0 32px rgba(255, 91, 53, 0.35);
   }
 
   .hero-subtitle {
     max-width: 640px;
     font-size: 14px;
     line-height: 1.6;
-    color: #8b8b93;
+    color: #a1a1aa;
     letter-spacing: -0.01em;
     margin: 0 auto;
     text-align: center;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
   }
 
   .hero-actions {
@@ -267,7 +296,9 @@
   }
 
   .cta-btn.secondary {
-    background: #09090c;
+    background: rgba(9, 9, 12, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: #ededed;
     border-color: #27272a;
   }
@@ -287,7 +318,9 @@
   }
 
   .feature-card {
-    background: #09090c;
+    background: rgba(9, 9, 12, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid #1f1f26;
     padding: 18px 16px;
     text-align: left;
@@ -299,7 +332,7 @@
 
   .feature-card:hover {
     border-color: #ff5b35;
-    background: #111116;
+    background: rgba(17, 17, 22, 0.95);
     transform: translateY(-2px);
   }
 

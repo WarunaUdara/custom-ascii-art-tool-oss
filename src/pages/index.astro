@@ -8,7 +8,7 @@ import HeroSection from '../components/home/HeroSection.svelte';
   activeTab="home"
 >
   <div class="landing-page-root">
-    <HeroSection client:load />
+    <HeroSection client:only="svelte" />
   </div>
 </Layout>
 
