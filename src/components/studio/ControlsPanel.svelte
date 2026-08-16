@@ -43,11 +43,11 @@
 </script>
 
 <div class="controls-panel">
-  <!-- Corner intersection markers -->
-  <span class="corner-crosshair tl">+</span>
-  <span class="corner-crosshair tr">+</span>
-  <span class="corner-crosshair bl">+</span>
-  <span class="corner-crosshair br">+</span>
+  <!-- L-shaped corner intersection brackets -->
+  <span class="corner-bracket tl">┌</span>
+  <span class="corner-bracket tr">┐</span>
+  <span class="corner-bracket bl">└</span>
+  <span class="corner-bracket br">┘</span>
 
   <div class="panel-header">
     <div class="title-group">
@@ -346,20 +346,6 @@
     position: relative;
   }
 
-  .corner-crosshair {
-    position: absolute;
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    line-height: 1;
-    color: #3f3f46;
-    pointer-events: none;
-    z-index: 10;
-  }
-  .corner-crosshair.tl { top: 6px; left: 6px; }
-  .corner-crosshair.tr { top: 6px; right: 6px; }
-  .corner-crosshair.bl { bottom: 6px; left: 6px; }
-  .corner-crosshair.br { bottom: 6px; right: 6px; }
-
   .panel-header {
     display: flex;
     align-items: center;
@@ -394,14 +380,12 @@
     border: 1px solid #27272a;
     color: #ff5b35;
     padding: 1px 5px;
-    border-radius: 2px;
   }
 
   .system-status-dot {
     width: 6px;
     height: 6px;
     background: #22c55e;
-    border-radius: 50%;
     box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
   }
 
@@ -435,9 +419,8 @@
     width: 100%;
     accent-color: #ff5b35;
     cursor: pointer;
-    height: 4px;
+    height: 3px;
     background: #27272a;
-    border-radius: 2px;
   }
 
   select,
@@ -446,7 +429,6 @@
     background: #09090b;
     color: #ededed;
     border: 1px solid #27272a;
-    border-radius: 4px;
     padding: 7px 10px;
     font-family: inherit;
     font-size: 11px;
@@ -472,7 +454,6 @@
     border: 1px solid #27272a;
     color: #a1a1aa;
     padding: 3px 6px;
-    border-radius: 3px;
     cursor: pointer;
   }
 
@@ -510,8 +491,7 @@
     inset: 0;
     background: #18181b;
     border: 1px solid #27272a;
-    border-radius: 999px;
-    transition: 0.2s;
+    transition: 0.15s;
   }
 
   .slider-toggle:before {
@@ -522,8 +502,7 @@
     left: 2px;
     top: 2px;
     background: #71717a;
-    border-radius: 50%;
-    transition: 0.2s;
+    transition: 0.15s;
   }
 
   input:checked + .slider-toggle {
@@ -547,7 +526,6 @@
     height: 22px;
     border: 1px solid #27272a;
     background: none;
-    border-radius: 3px;
     cursor: pointer;
     padding: 1px;
   }
@@ -567,7 +545,6 @@
   .action-btn {
     width: 100%;
     padding: 10px;
-    border-radius: 4px;
     font-size: 11px;
     cursor: pointer;
     border: 1px solid transparent;

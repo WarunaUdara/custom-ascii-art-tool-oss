@@ -90,13 +90,13 @@
   .palette-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .presets-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    gap: 5px;
   }
 
   .preset-chip {
@@ -105,7 +105,6 @@
     gap: 4px;
     background: #0d0d10;
     border: 1px solid #1f1f26;
-    border-radius: 4px;
     padding: 6px 8px;
     cursor: pointer;
     text-align: left;
@@ -120,7 +119,6 @@
   .preset-preview {
     display: flex;
     height: 6px;
-    border-radius: 2px;
     overflow: hidden;
     width: 100%;
     border: 1px solid #23232b;
@@ -141,12 +139,11 @@
   .levels-grid {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     margin-top: 4px;
     border: 1px solid #1a1a22;
     padding: 8px;
     background: #09090c;
-    border-radius: 4px;
   }
 
   .level-item {
@@ -178,7 +175,6 @@
     height: 20px;
     border: 1px solid #262630;
     background: none;
-    border-radius: 3px;
     cursor: pointer;
     padding: 1px;
   }

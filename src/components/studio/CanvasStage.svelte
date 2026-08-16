@@ -48,11 +48,11 @@
   role="region"
   aria-label="Canvas Stage Viewport"
 >
-  <!-- Corner intersection connectors -->
-  <span class="stage-crosshair tl">+</span>
-  <span class="stage-crosshair tr">+</span>
-  <span class="stage-crosshair bl">+</span>
-  <span class="stage-crosshair br">+</span>
+  <!-- L-shaped corner intersection brackets -->
+  <span class="corner-bracket tl">┌</span>
+  <span class="corner-bracket tr">┐</span>
+  <span class="corner-bracket bl">└</span>
+  <span class="corner-bracket br">┘</span>
 
   <input
     type="file"
@@ -71,10 +71,10 @@
       role="button"
       aria-label="Upload Image or Video"
     >
-      <span class="corner-crosshair tl">+</span>
-      <span class="corner-crosshair tr">+</span>
-      <span class="corner-crosshair bl">+</span>
-      <span class="corner-crosshair br">+</span>
+      <span class="corner-bracket tl">┌</span>
+      <span class="corner-bracket tr">┐</span>
+      <span class="corner-bracket bl">└</span>
+      <span class="corner-bracket br">┘</span>
 
       <div class="drop-icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -95,6 +95,11 @@
 
   {#if hasMedia && stats}
     <div class="telemetry-hud font-mono">
+      <span class="corner-bracket tl">┌</span>
+      <span class="corner-bracket tr">┐</span>
+      <span class="corner-bracket bl">└</span>
+      <span class="corner-bracket br">┘</span>
+
       <div class="hud-item">
         <span class="hud-label">GRID</span>
         <span class="hud-value">{stats.cols}×{stats.rows}</span>
@@ -143,19 +148,6 @@
     background: #09090c;
   }
 
-  .stage-crosshair {
-    position: absolute;
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    line-height: 1;
-    color: #27272a;
-    pointer-events: none;
-  }
-  .stage-crosshair.tl { top: 8px; left: 8px; }
-  .stage-crosshair.tr { top: 8px; right: 8px; }
-  .stage-crosshair.bl { bottom: 8px; left: 8px; }
-  .stage-crosshair.br { bottom: 8px; right: 8px; }
-
   .dropzone-box {
     display: flex;
     flex-direction: column;
@@ -164,7 +156,6 @@
     gap: 8px;
     border: 1px solid #27272a;
     background: #09090b;
-    border-radius: 4px;
     padding: 48px 40px;
     cursor: pointer;
     color: #71717a;
@@ -178,18 +169,6 @@
     background: #111115;
     transform: translateY(-1px);
   }
-
-  .corner-crosshair {
-    position: absolute;
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    color: #52525b;
-    line-height: 1;
-  }
-  .corner-crosshair.tl { top: -5px; left: -5px; }
-  .corner-crosshair.tr { top: -5px; right: -5px; }
-  .corner-crosshair.bl { bottom: -5px; left: -5px; }
-  .corner-crosshair.br { bottom: -5px; right: -5px; }
 
   .drop-icon {
     color: #ff5b35;
@@ -227,7 +206,6 @@
     max-height: 82vh;
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9);
     border: 1px solid #1f1f26;
-    border-radius: 2px;
     cursor: crosshair;
   }
 
@@ -236,18 +214,18 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(9, 9, 11, 0.9);
+    background: rgba(9, 9, 11, 0.95);
     backdrop-filter: blur(12px);
     border: 1px solid #27272a;
-    padding: 6px 14px;
-    border-radius: 4px;
+    padding: 8px 18px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 10px;
     color: #a1a1aa;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
     z-index: 20;
+    position: absolute;
   }
 
   .hud-item {
@@ -278,8 +256,7 @@
     background: #18181b;
     color: #ededed;
     border: 1px solid #27272a;
-    border-radius: 2px;
-    padding: 2px 7px;
+    padding: 3px 8px;
     font-size: 9px;
     cursor: pointer;
     transition: all 0.15s;

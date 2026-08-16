@@ -59,7 +59,7 @@
 }
 
 /* ============================================================
-   DESIGN SYSTEM TOKENS (VERCEL-INSPIRED DARK PRECISION)
+   DESIGN SYSTEM TOKENS (SHARP EDGES & PRECISION GRID)
    ============================================================ */
 
 :root {
@@ -85,6 +85,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border-radius: 0px !important; /* Strict sharp rectangular precision */
 }
 
 html, body {
@@ -118,28 +119,30 @@ html, body {
 }
 
 /* ============================================================
-   GRID LINES & CORNER INTERSECTION CONNECTORS
+   L-SHAPED CORNER INTERSECTION BRACKETS (┌ ┐ └ ┘)
    ============================================================ */
 
-.grid-corner-crosshair {
+.corner-bracket {
   position: absolute;
   font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1;
-  color: #3f3f46;
+  color: #52525b;
   pointer-events: none;
-  z-index: 10;
+  z-index: 15;
   user-select: none;
+  font-weight: normal;
 }
-.grid-corner-crosshair.tl { top: 6px; left: 6px; }
-.grid-corner-crosshair.tr { top: 6px; right: 6px; }
-.grid-corner-crosshair.bl { bottom: 6px; left: 6px; }
-.grid-corner-crosshair.br { bottom: 6px; right: 6px; }
+
+.corner-bracket.tl { top: 4px; left: 4px; }
+.corner-bracket.tr { top: 4px; right: 4px; }
+.corner-bracket.bl { bottom: 4px; left: 4px; }
+.corner-bracket.br { bottom: 4px; right: 4px; }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -148,7 +151,6 @@ html, body {
 
 ::-webkit-scrollbar-thumb {
   background: #27272a;
-  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
