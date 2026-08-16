@@ -4,14 +4,39 @@ import '../styles/custom.css';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
-  title = 'Dither & ASCII Studio Engine',
-  description = 'High-performance real-time Dither, Jitter, and ASCII art generator built with Astro, Svelte 5, and Canvas 2D.',
+  title = 'ASCII & Dither Studio Engine — Real-time Retro Matrix & Halftone Tool',
+  description = 'Browser-based image and video dithering studio. Transform photos, animations, and video streams into retro 7-level, Bayer matrix, Floyd-Steinberg, Atkinson, and ASCII glyph art with 60 FPS real-time export.',
+  image = '/og-image.png',
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site || 'https://warunaudara.github.io').href;
+const socialImageUrl = new URL(`${baseUrl}${image}`, Astro.site || 'https://warunaudara.github.io').href;
+
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'ASCII & Dither Studio Engine',
+  url: canonicalUrl,
+  description: description,
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'All',
+  browserRequirements: 'Requires modern browser with Canvas and WebAssembly/MediaRecorder support',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  author: {
+    '@type': 'Person',
+    name: 'Waruna Udara',
+    url: 'https://github.com/WarunaUdara',
+  },
+};
 ---
 
 <!doctype html>
@@ -21,22 +46,48 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content="ascii art generator, dither tool, dithering algorithm, floyd steinberg, atkinson dither, bayer matrix, retro matrix generator, image dithering online, video dither converter, halftone generator, vercel geist pixel, svelte 5 runes, canvas 2d image processing" />
+    <meta name="author" content="Waruna Udara" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href={`${baseUrl}/favicon.svg`} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:site_name" content="ASCII & Dither Studio" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:creator" content="@WarunaUdara" />
+
+    <!-- JSON-LD Structured Data Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
   </head>
   <body>
     <div class="app-viewport">
       <!-- Top Navigation Header -->
       <header class="app-header">
         <div class="header-left">
-          <a href={`${baseUrl}/`} class="brand-logo">
+          <a href={`${baseUrl}/`} class="brand-logo" title="ASCII & Dither Studio">
             <span class="brand-bracket">[</span>
             <span class="brand-name font-pixel">ASCII // DITHER</span>
             <span class="brand-bracket">]</span>
           </a>
           <span class="header-divider">|</span>
           <div class="tool-selector">
-            <span class="tool-tab active font-mono">01. DITHER MATRIX</span>
+            <a href={`${baseUrl}/`} class="tool-tab active font-mono">01. DITHER MATRIX</a>
             <span class="tool-tab upcoming font-mono" title="More creative tools coming soon">+ TOOL 02</span>
           </div>
         </div>
@@ -54,7 +105,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
             target="_blank"
             rel="noopener noreferrer"
             class="header-btn font-mono"
-            title="View Source on GitHub"
+            title="Star on GitHub"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -137,6 +188,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
     padding: 3px 8px;
     border-radius: 3px;
     letter-spacing: 0.02em;
+    text-decoration: none;
   }
 
   .tool-tab.active {

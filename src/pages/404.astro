@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="404 - Page Not Found // ASCII Studio">
+  <div class="not-found-wrapper">
+    <div class="not-found-box">
+      <span class="grid-corner-crosshair tl">+</span>
+      <span class="grid-corner-crosshair tr">+</span>
+      <span class="grid-corner-crosshair bl">+</span>
+      <span class="grid-corner-crosshair br">+</span>
+
+      <div class="code-tag font-pixel">ERROR 404</div>
+      <h1 class="title font-pixel">ROUTE NOT FOUND</h1>
+      <p class="desc font-mono">The requested path does not exist in this deployment.</p>
+      
+      <a href={`${baseUrl}/`} class="return-btn font-pixel">
+        RETURN TO STUDIO
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .not-found-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #000000;
+  }
+
+  .not-found-box {
+    position: relative;
+    background: #09090b;
+    border: 1px solid #1f1f26;
+    padding: 48px 40px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    max-width: 420px;
+  }
+
+  .code-tag {
+    color: #ff5b35;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .title {
+    color: #ffffff;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .desc {
+    color: #71717a;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .return-btn {
+    margin-top: 8px;
+    background: #ededed;
+    color: #000000;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+  }
+
+  .return-btn:hover {
+    background: #ffffff;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+  }
+</style>
