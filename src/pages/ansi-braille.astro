@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BrailleStudio from '../components/braille/BrailleStudio.svelte';
+---
+
+<Layout
+  title="ANSI & Braille Sub-Pixel Studio // 2x4 Matrix & CLI Generator"
+  description="Convert images and videos or hand-paint 2x4 Unicode Braille sub-pixel art. Export 24-bit Truecolor ANSI terminal escape codes, plain text, and executable .sh shell scripts."
+  activeTab="braille"
+>
+  <div class="braille-page-root">
+    <BrailleStudio client:only="svelte" />
+  </div>
+</Layout>
+
+<style>
+  .braille-page-root {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
+</style>

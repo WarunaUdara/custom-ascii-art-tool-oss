@@ -6,7 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
-  activeTab?: 'home' | 'studio' | 'marks';
+  activeTab?: 'home' | 'studio' | 'marks' | 'braille';
 }
 
 const {
@@ -131,6 +131,20 @@ const schemaData = {
                 </>
               )}
               02. TONE MATRIX
+            </a>
+            <a
+              href={`${baseUrl}/ansi-braille/`}
+              class={`tool-tab font-mono ${activeTab === 'braille' ? 'active corner-ticks' : ''}`}
+            >
+              {activeTab === 'braille' && (
+                <>
+                  <span class="tick-tl"></span>
+                  <span class="tick-tr"></span>
+                  <span class="tick-bl"></span>
+                  <span class="tick-br"></span>
+                </>
+              )}
+              03. ANSI & BRAILLE
             </a>
           </nav>
         </div>
