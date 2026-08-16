@@ -52,9 +52,6 @@
   <!-- Soft Ambient Contrast Vignette -->
   <div class="vignette-overlay"></div>
 
-  <!-- Dual Michelangelo Adam Reaching Hands Parallax ASCII Dither Layer -->
-  <AdamHandsDither />
-
   <!-- Subtle Background Grid Pattern Overlay -->
   <div class="grid-backdrop"></div>
 
@@ -67,8 +64,10 @@
       </div>
     </div>
 
-    <!-- Main Headline with Decrypted Text & Geist Pixel Font -->
+    <!-- Main Headline with Decrypted Text & Geist Pixel Font, Flanked by Adam Hands -->
     <div class="headline-wrapper">
+      <AdamHandsDither />
+
       <h1 class="main-title font-pixel">
         <span class="title-line">
           <DecryptedText
@@ -159,7 +158,7 @@
   .vignette-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.8) 100%);
+    background: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0.8) 100%);
     pointer-events: none;
     z-index: 2;
   }
@@ -219,15 +218,20 @@
   }
 
   .headline-wrapper {
-    margin: 4px 0;
+    position: relative;
+    margin: 8px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
+    min-height: 160px;
     text-align: center;
+    overflow: visible;
   }
 
   .main-title {
+    position: relative;
     font-size: clamp(28px, 5vw, 56px);
     line-height: 1.15;
     color: #ffffff;
@@ -240,6 +244,7 @@
     width: 100%;
     margin: 0 auto;
     gap: 6px;
+    z-index: 10;
   }
 
   .title-line {

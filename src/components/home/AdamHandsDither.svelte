@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
 
-  const BASE_COLOR = '#ff5b35'; // Signature accent color
+  const BASE_COLOR = '#ff5b35'; // Brand vibrant orange accent
   const ASCII_RAMP = ' .:-=+*#%@';
 
   function hexToRgb(hex: string): [number, number, number] {
@@ -9,16 +9,17 @@
     return [(v >> 16) & 255, (v >> 8) & 255, v & 255];
   }
 
+  // Generates high-contrast vivid tonal palette for maximum visibility
   function generateTonalPalette(baseHex: string): [number, number, number][] {
     const [r, g, b] = hexToRgb(baseHex);
     const stops = [
-      0.10, // 0: Deep Shadow
-      0.24, // 1: Low Tone
-      0.42, // 2: Mid-Low Tone
-      0.62, // 3: Mid Tone
-      0.82, // 4: Mid-High Tone
-      1.00, // 5: Base Highlight
-      1.35, // 6: Apex Luminous Highlight (tints towards white)
+      0.18, // 0: Deep Shadow
+      0.35, // 1: Low Tone
+      0.55, // 2: Mid-Low Tone
+      0.75, // 3: Mid Tone
+      0.95, // 4: Mid-High Tone
+      1.15, // 5: Base Highlight
+      1.45, // 6: Apex Luminous Highlight (bright glow)
     ];
 
     return stops.map((factor) => {
@@ -31,9 +32,9 @@
       } else {
         const t = factor - 1.0;
         return [
-          Math.round(r + (255 - r) * Math.min(1, t * 1.5)),
-          Math.round(g + (255 - g) * Math.min(1, t * 1.5)),
-          Math.round(b + (255 - b) * Math.min(1, t * 1.5)),
+          Math.round(r + (255 - r) * Math.min(1, t * 1.8)),
+          Math.round(g + (255 - g) * Math.min(1, t * 1.8)),
+          Math.round(b + (255 - b) * Math.min(1, t * 1.8)),
         ];
       }
     });
@@ -105,10 +106,10 @@
     if (leftWrapRef && leftHighlightCanvasRef) {
       const rect = leftWrapRef.getBoundingClientRect();
       const isOverLeft =
-        e.clientX >= rect.left - 40 &&
-        e.clientX <= rect.right + 40 &&
-        e.clientY >= rect.top - 60 &&
-        e.clientY <= rect.bottom + 60;
+        e.clientX >= rect.left - 60 &&
+        e.clientX <= rect.right + 60 &&
+        e.clientY >= rect.top - 80 &&
+        e.clientY <= rect.bottom + 80;
 
       if (isOverLeft) {
         const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1));
@@ -136,10 +137,10 @@
     if (rightWrapRef && rightHighlightCanvasRef) {
       const rect = rightWrapRef.getBoundingClientRect();
       const isOverRight =
-        e.clientX >= rect.left - 40 &&
-        e.clientX <= rect.right + 40 &&
-        e.clientY >= rect.top - 60 &&
-        e.clientY <= rect.bottom + 60;
+        e.clientX >= rect.left - 60 &&
+        e.clientX <= rect.right + 60 &&
+        e.clientY >= rect.top - 80 &&
+        e.clientY <= rect.bottom + 80;
 
       if (isOverRight) {
         const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / (rect.width || 1)) * 2 - 1));
@@ -197,7 +198,7 @@
 
     img.onload = () => {
       const aspect = img.width / img.height;
-      const targetW = 900;
+      const targetW = 960;
       const targetH = Math.round(targetW / aspect);
 
       shadowCanvas.width = targetW;
@@ -207,7 +208,7 @@
       highlightCanvas.width = targetW;
       highlightCanvas.height = targetH;
 
-      const cols = 75;
+      const cols = 80;
       const rows = Math.max(1, Math.round(cols / aspect));
       const cellW = targetW / cols;
       const cellH = targetH / rows;
@@ -231,16 +232,16 @@
       }
 
       const hoverRgb = hexToRgb('#ffffff');
-      const radiusPx = (22 / 100) * targetW;
+      const radiusPx = (24 / 100) * targetW;
       const intensity = 1.0;
-      const speed = 0.2;
-      const fontSize = Math.max(6, Math.min(cellW, cellH) * 1.05);
+      const speed = 0.22;
+      const fontSize = Math.max(7, Math.min(cellW, cellH) * 1.08);
 
       // 1. Layer 1: Shadows (Levels 1, 2)
       shadowCtx.clearRect(0, 0, targetW, targetH);
       shadowCtx.textAlign = 'center';
       shadowCtx.textBaseline = 'middle';
-      shadowCtx.font = `${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, monospace`;
+      shadowCtx.font = `bold ${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, monospace`;
 
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -264,7 +265,7 @@
       midCtx.clearRect(0, 0, targetW, targetH);
       midCtx.textAlign = 'center';
       midCtx.textBaseline = 'middle';
-      midCtx.font = `${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, monospace`;
+      midCtx.font = `bold ${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, monospace`;
 
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -289,7 +290,7 @@
         highlightCtx.clearRect(0, 0, targetW, targetH);
         highlightCtx.textAlign = 'center';
         highlightCtx.textBaseline = 'middle';
-        highlightCtx.font = `${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, monospace`;
+        highlightCtx.font = `bold ${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, monospace`;
 
         let anyActiveInfluence = false;
 
@@ -355,7 +356,7 @@
       imagesReady = true;
       setTimeout(() => {
         isRevealed = true;
-      }, 100);
+      }, 50);
     }
   }
 
@@ -365,16 +366,16 @@
       const leftDx = leftState.target.x - leftState.cur.x;
       const leftDy = leftState.target.y - leftState.cur.y;
       if (Math.abs(leftDx) > 0.0005 || Math.abs(leftDy) > 0.0005) {
-        leftState.cur.x += leftDx * 0.12;
-        leftState.cur.y += leftDy * 0.12;
+        leftState.cur.x += leftDx * 0.14;
+        leftState.cur.y += leftDy * 0.14;
         leftOffset = { x: leftState.cur.x, y: leftState.cur.y };
       }
 
       const rightDx = rightState.target.x - rightState.cur.x;
       const rightDy = rightState.target.y - rightState.cur.y;
       if (Math.abs(rightDx) > 0.0005 || Math.abs(rightDy) > 0.0005) {
-        rightState.cur.x += rightDx * 0.12;
-        rightState.cur.y += rightDy * 0.12;
+        rightState.cur.x += rightDx * 0.14;
+        rightState.cur.y += rightDy * 0.14;
         rightOffset = { x: rightState.cur.x, y: rightState.cur.y };
       }
 
@@ -427,9 +428,9 @@
   class="adam-hands-container"
   aria-hidden="true"
 >
-  <!-- DUAL REACHING HANDS -->
+  <!-- PROMINENT DUAL REACHING HANDS FLANKING & TOUCHING THE HEADLINE DIRECTLY -->
   <div class="hands-viewport">
-    <!-- LEFT HAND (Materializes from left side sweeping right to center) -->
+    <!-- LEFT HAND (Reaches from left screen edge touching the left side of heading) -->
     <div
       bind:this={leftWrapRef}
       class="hand-wrapper left-hand"
@@ -438,7 +439,7 @@
       <!-- Layer 1: Shadow Plane -->
       <div
         class="plane-layer"
-        style="transform: translate3d({leftOffset.x * 1}px, {leftOffset.y * 0.8}px, 0) scale(0.995); opacity: 0.85;"
+        style="transform: translate3d({leftOffset.x * 1.2}px, {leftOffset.y * 1.0}px, 0) scale(0.995); opacity: 0.9;"
       >
         <canvas bind:this={leftShadowCanvasRef} class="hand-canvas"></canvas>
       </div>
@@ -446,7 +447,7 @@
       <!-- Layer 2: Midtone Plane -->
       <div
         class="plane-layer"
-        style="transform: translate3d({leftOffset.x * 2.2}px, {leftOffset.y * 1.8}px, 0); opacity: 0.95;"
+        style="transform: translate3d({leftOffset.x * 2.6}px, {leftOffset.y * 2.0}px, 0); opacity: 1.0;"
       >
         <canvas bind:this={leftMidCanvasRef} class="hand-canvas"></canvas>
       </div>
@@ -454,7 +455,7 @@
       <!-- Layer 3: Highlight Plane + Glow -->
       <div
         class="plane-layer"
-        style="transform: translate3d({leftOffset.x * 3.8}px, {leftOffset.y * 2.8}px, 0);"
+        style="transform: translate3d({leftOffset.x * 4.2}px, {leftOffset.y * 3.2}px, 0);"
       >
         <canvas
           bind:this={leftHighlightCanvasRef}
@@ -463,7 +464,7 @@
       </div>
     </div>
 
-    <!-- RIGHT HAND (Materializes from right side sweeping left to center) -->
+    <!-- RIGHT HAND (Reaches from right screen edge touching the right side of heading) -->
     <div
       bind:this={rightWrapRef}
       class="hand-wrapper right-hand"
@@ -472,7 +473,7 @@
       <!-- Layer 1: Shadow Plane -->
       <div
         class="plane-layer"
-        style="transform: translate3d({rightOffset.x * 1}px, {rightOffset.y * 0.8}px, 0) scale(0.995); opacity: 0.85;"
+        style="transform: translate3d({rightOffset.x * 1.2}px, {rightOffset.y * 1.0}px, 0) scale(0.995); opacity: 0.9;"
       >
         <canvas bind:this={rightShadowCanvasRef} class="hand-canvas"></canvas>
       </div>
@@ -480,7 +481,7 @@
       <!-- Layer 2: Midtone Plane -->
       <div
         class="plane-layer"
-        style="transform: translate3d({rightOffset.x * 2.2}px, {rightOffset.y * 1.8}px, 0); opacity: 0.95;"
+        style="transform: translate3d({rightOffset.x * 2.6}px, {rightOffset.y * 2.0}px, 0); opacity: 1.0;"
       >
         <canvas bind:this={rightMidCanvasRef} class="hand-canvas"></canvas>
       </div>
@@ -488,7 +489,7 @@
       <!-- Layer 3: Highlight Plane + Glow -->
       <div
         class="plane-layer"
-        style="transform: translate3d({rightOffset.x * 3.8}px, {rightOffset.y * 2.8}px, 0);"
+        style="transform: translate3d({rightOffset.x * 4.2}px, {rightOffset.y * 3.2}px, 0);"
       >
         <canvas
           bind:this={rightHighlightCanvasRef}
@@ -506,31 +507,32 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 4;
-    overflow: hidden;
+    z-index: 1;
+    overflow: visible;
   }
 
   .hands-viewport {
     position: absolute;
-    inset-x: 0;
-    bottom: 0;
-    width: 100%;
-    height: 62%;
-    min-height: 280px;
-    max-height: 520px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    max-width: 1600px;
+    height: 480px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     pointer-events: none;
   }
 
   .hand-wrapper {
-    width: 48%;
+    width: 46%;
+    max-width: 620px;
     height: 100%;
     position: relative;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     pointer-events: none;
     transition: clip-path 1400ms cubic-bezier(0.16, 1, 0.3, 1),
                 -webkit-clip-path 1400ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -543,7 +545,7 @@
     clip-path: inset(0 100% 0 0);
     -webkit-clip-path: inset(0 100% 0 0);
     opacity: 0;
-    transform: translate3d(-30px, 0, 0);
+    transform: translate3d(-80px, 0, 0);
   }
 
   .hand-wrapper.left-hand.revealed {
@@ -558,7 +560,7 @@
     clip-path: inset(0 0 0 100%);
     -webkit-clip-path: inset(0 0 0 100%);
     opacity: 0;
-    transform: translate3d(30px, 0, 0);
+    transform: translate3d(80px, 0, 0);
   }
 
   .hand-wrapper.right-hand.revealed {
@@ -572,7 +574,7 @@
     position: absolute;
     inset: 0;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     transition: transform 0.08s ease-out;
   }
 
@@ -592,14 +594,26 @@
   }
 
   .highlight-glow {
-    filter: drop-shadow(0 0 24px rgba(255, 91, 53, 0.3));
+    filter: drop-shadow(0 0 36px rgba(255, 91, 53, 0.65));
+  }
+
+  @media (max-width: 1200px) {
+    .hands-viewport {
+      height: 400px;
+    }
+    .hand-wrapper {
+      width: 44%;
+      max-width: 500px;
+    }
   }
 
   @media (max-width: 768px) {
     .hands-viewport {
-      height: 40%;
-      min-height: 200px;
-      opacity: 0.6;
+      height: 280px;
+    }
+    .hand-wrapper {
+      width: 42%;
+      max-width: 340px;
     }
   }
 </style>
