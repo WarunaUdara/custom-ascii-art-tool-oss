@@ -48,6 +48,12 @@
   role="region"
   aria-label="Canvas Stage Viewport"
 >
+  <!-- Corner intersection connectors -->
+  <span class="stage-crosshair tl">+</span>
+  <span class="stage-crosshair tr">+</span>
+  <span class="stage-crosshair bl">+</span>
+  <span class="stage-crosshair br">+</span>
+
   <input
     type="file"
     accept="image/*,video/*"
@@ -65,15 +71,21 @@
       role="button"
       aria-label="Upload Image or Video"
     >
+      <span class="corner-crosshair tl">+</span>
+      <span class="corner-crosshair tr">+</span>
+      <span class="corner-crosshair bl">+</span>
+      <span class="corner-crosshair br">+</span>
+
       <div class="drop-icon">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
           <path d="M12 12v9" />
           <path d="m16 16-4-4-4 4" />
         </svg>
       </div>
-      <div class="drop-text-primary">Click or drop an image / video</div>
-      <div class="drop-text-sub">Supports PNG, JPG, WebP, MP4, WebM, MOV</div>
+      <div class="drop-title font-pixel">SELECT SOURCE MEDIA</div>
+      <div class="drop-subtitle font-mono">CLICK OR DRAG IMAGE / VIDEO</div>
+      <div class="drop-formats font-mono">PNG · JPG · WEBP · MP4 · WEBM</div>
     </div>
   {/if}
 
@@ -82,19 +94,33 @@
   </div>
 
   {#if hasMedia && stats}
-    <div class="stats-badge">
-      <span>{stats.cols}×{stats.rows} ({stats.totalCells.toLocaleString()} cells)</span>
-      <span class="divider">|</span>
-      <span>{stats.renderTimeMs}ms</span>
-      <span class="divider">|</span>
-      <span>{stats.fps} FPS</span>
+    <div class="telemetry-hud font-mono">
+      <div class="hud-item">
+        <span class="hud-label">GRID</span>
+        <span class="hud-value">{stats.cols}×{stats.rows}</span>
+      </div>
+      <span class="hud-divider">|</span>
+      <div class="hud-item">
+        <span class="hud-label">CELLS</span>
+        <span class="hud-value">{stats.totalCells.toLocaleString()}</span>
+      </div>
+      <span class="hud-divider">|</span>
+      <div class="hud-item">
+        <span class="hud-label">LATENCY</span>
+        <span class="hud-value">{stats.renderTimeMs}ms</span>
+      </div>
+      <span class="hud-divider">|</span>
+      <div class="hud-item">
+        <span class="hud-label">RATE</span>
+        <span class="hud-value highlight">{stats.fps} FPS</span>
+      </div>
       <button
         type="button"
-        class="replace-btn"
+        class="replace-btn font-pixel"
         onclick={() => fileInput?.click()}
         title="Change Media File"
       >
-        Change File
+        CHANGE
       </button>
     </div>
   {/if}
@@ -107,53 +133,85 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: #08080a;
+    background: #000000;
     position: relative;
     overflow: hidden;
     min-height: 480px;
   }
 
   .stage-container.dragging {
-    background: #0d0e12;
+    background: #09090c;
   }
+
+  .stage-crosshair {
+    position: absolute;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    line-height: 1;
+    color: #27272a;
+    pointer-events: none;
+  }
+  .stage-crosshair.tl { top: 8px; left: 8px; }
+  .stage-crosshair.tr { top: 8px; right: 8px; }
+  .stage-crosshair.bl { bottom: 8px; left: 8px; }
+  .stage-crosshair.br { bottom: 8px; right: 8px; }
 
   .dropzone-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    border: 2px dashed #23232c;
-    border-radius: 12px;
-    padding: 48px 36px;
+    gap: 8px;
+    border: 1px solid #27272a;
+    background: #09090b;
+    border-radius: 4px;
+    padding: 48px 40px;
     cursor: pointer;
-    color: #8b8b93;
-    transition: all 0.2s ease;
-    background: #111116;
+    color: #71717a;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .dropzone-box:hover,
   .stage-container.dragging .dropzone-box {
     border-color: #ff5b35;
-    color: #e4e4e7;
-    transform: scale(1.01);
+    background: #111115;
+    transform: translateY(-1px);
   }
+
+  .corner-crosshair {
+    position: absolute;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    color: #52525b;
+    line-height: 1;
+  }
+  .corner-crosshair.tl { top: -5px; left: -5px; }
+  .corner-crosshair.tr { top: -5px; right: -5px; }
+  .corner-crosshair.bl { bottom: -5px; left: -5px; }
+  .corner-crosshair.br { bottom: -5px; right: -5px; }
 
   .drop-icon {
     color: #ff5b35;
+    margin-bottom: 4px;
   }
 
-  .drop-text-primary {
+  .drop-title {
     font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.06em;
+    color: #ededed;
   }
 
-  .drop-text-sub {
+  .drop-subtitle {
     font-size: 10px;
-    color: #63636e;
-    font-family: inherit;
+    letter-spacing: 0.04em;
+    color: #a1a1aa;
+  }
+
+  .drop-formats {
+    font-size: 9px;
+    color: #52525b;
+    margin-top: 4px;
   }
 
   .canvas-wrapper {
@@ -166,48 +224,70 @@
 
   canvas#dither-canvas {
     max-width: 100%;
-    max-height: 80vh;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-    border-radius: 4px;
+    max-height: 82vh;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9);
+    border: 1px solid #1f1f26;
+    border-radius: 2px;
     cursor: crosshair;
   }
 
-  .stats-badge {
+  .telemetry-hud {
     position: absolute;
-    bottom: 16px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(18, 18, 22, 0.85);
-    backdrop-filter: blur(8px);
-    border: 1px solid #23232b;
+    background: rgba(9, 9, 11, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid #27272a;
     padding: 6px 14px;
-    border-radius: 999px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    gap: 10px;
     font-size: 10px;
-    color: #9d9da8;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    color: #a1a1aa;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    z-index: 20;
   }
 
-  .divider {
-    color: #3b3b47;
+  .hud-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .hud-label {
+    color: #52525b;
+    font-size: 9px;
+  }
+
+  .hud-value {
+    color: #ededed;
+    font-weight: 500;
+  }
+
+  .hud-value.highlight {
+    color: #22c55e;
+  }
+
+  .hud-divider {
+    color: #27272a;
   }
 
   .replace-btn {
-    background: #ff5b35;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 2px 8px;
+    background: #18181b;
+    color: #ededed;
+    border: 1px solid #27272a;
+    border-radius: 2px;
+    padding: 2px 7px;
     font-size: 9px;
-    font-family: inherit;
     cursor: pointer;
-    font-weight: 600;
+    transition: all 0.15s;
   }
 
   .replace-btn:hover {
-    background: #ff704d;
+    background: #ff5b35;
+    border-color: #ff5b35;
+    color: #ffffff;
   }
 </style>

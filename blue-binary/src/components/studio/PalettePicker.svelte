@@ -103,26 +103,27 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background: #19191e;
-    border: 1px solid #2b2b34;
-    border-radius: 6px;
+    background: #0d0d10;
+    border: 1px solid #1f1f26;
+    border-radius: 4px;
     padding: 6px 8px;
     cursor: pointer;
     text-align: left;
-    transition: border-color 0.15s ease, transform 0.1s ease;
+    transition: all 0.15s ease;
   }
 
   .preset-chip:hover {
     border-color: #ff5b35;
-    transform: translateY(-1px);
+    background: #141418;
   }
 
   .preset-preview {
     display: flex;
-    height: 8px;
-    border-radius: 3px;
+    height: 6px;
+    border-radius: 2px;
     overflow: hidden;
     width: 100%;
+    border: 1px solid #23232b;
   }
 
   .preview-stripe {
@@ -133,29 +134,36 @@
   .preset-name {
     font-size: 10px;
     color: #a0a0ab;
-    font-family: inherit;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    letter-spacing: -0.02em;
   }
 
   .levels-grid {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-top: 6px;
+    gap: 5px;
+    margin-top: 4px;
+    border: 1px solid #1a1a22;
+    padding: 8px;
+    background: #09090c;
+    border-radius: 4px;
   }
 
   .level-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 11px;
+    font-size: 10px;
     color: #8b8b93;
+    font-family: 'Geist Mono', ui-monospace, monospace;
   }
 
   .level-item label {
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    width: 65px;
+    width: 70px;
+    color: #71717a;
   }
 
   .color-input-wrapper {
@@ -166,18 +174,18 @@
   }
 
   input[type='color'] {
-    width: 32px;
-    height: 22px;
-    border: 1px solid #2b2b34;
+    width: 28px;
+    height: 20px;
+    border: 1px solid #262630;
     background: none;
-    border-radius: 4px;
+    border-radius: 3px;
     cursor: pointer;
     padding: 1px;
   }
 
   .hex-text {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: 'Geist Mono', ui-monospace, monospace;
     font-size: 10px;
-    color: #e4e4e7;
+    color: #d4d4d8;
   }
 </style>

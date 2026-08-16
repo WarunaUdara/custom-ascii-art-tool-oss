@@ -11,6 +11,7 @@ export default defineConfig({
 		svelte(),
 		starlight({
 			title: 'Dither & ASCII Engine',
+			customCss: ['./src/styles/custom.css'],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/WarunaUdara/custom-ascii-art-tool-oss' }],
 			sidebar: [
 				{

@@ -34,25 +34,36 @@
   ];
 
   const RAMPS = [
-    { label: 'Standard Density', value: ' .:-=+*#%@' },
-    { label: 'High Detail (20 chars)', value: ' .\'`^",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$' },
-    { label: 'Blocks & Shades', value: ' ░▒▓█' },
-    { label: 'Binary Matrix', value: ' 01' },
-    { label: 'Minimalist Dot', value: ' ·:•*' },
+    { label: 'Standard', value: ' .:-=+*#%@' },
+    { label: 'Density (20)', value: ' .\'`^",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$' },
+    { label: 'Blocks', value: ' ░▒▓█' },
+    { label: 'Binary', value: ' 01' },
+    { label: 'Dots', value: ' ·:•*' },
   ];
 </script>
 
 <div class="controls-panel">
+  <!-- Corner intersection markers -->
+  <span class="corner-crosshair tl">+</span>
+  <span class="corner-crosshair tr">+</span>
+  <span class="corner-crosshair bl">+</span>
+  <span class="corner-crosshair br">+</span>
+
   <div class="panel-header">
-    <h2>Engine Controls</h2>
-    <span class="badge">v2.0</span>
+    <div class="title-group">
+      <h2 class="pixel-heading">DITHER ENGINE</h2>
+      <span class="version-tag font-pixel-grid">V2.0</span>
+    </div>
+    <span class="system-status-dot" title="Engine Active"></span>
   </div>
+
+  <div class="panel-divider"></div>
 
   <!-- Resolution -->
   <div class="field">
     <div class="field-label">
       <span>Grid Resolution</span>
-      <span class="val">{config.resolution} cols</span>
+      <span class="val font-mono">{config.resolution} cols</span>
     </div>
     <input
       type="range"
@@ -71,7 +82,7 @@
   <!-- Algorithm -->
   <div class="field">
     <div class="field-label">
-      <span>Dithering Algorithm</span>
+      <span>Dithering Kernel</span>
     </div>
     <select
       value={config.algorithm}
@@ -90,8 +101,8 @@
   {#if config.algorithm === 'noise-jitter'}
     <div class="field">
       <div class="field-label">
-        <span>Jitter Intensity</span>
-        <span class="val">{Math.round(config.jitterAmount * 100)}%</span>
+        <span>Jitter Amplitude</span>
+        <span class="val font-mono">{Math.round(config.jitterAmount * 100)}%</span>
       </div>
       <input
         type="range"
@@ -111,7 +122,7 @@
   <!-- Cell Style -->
   <div class="field">
     <div class="field-label">
-      <span>Cell Style</span>
+      <span>Glyph Style</span>
     </div>
     <select
       value={config.style}
@@ -135,6 +146,7 @@
       </div>
       <input
         type="text"
+        class="ramp-input font-mono"
         value={config.ramp}
         oninput={(e) => {
           const val = (e.target as HTMLInputElement).value;
@@ -146,7 +158,7 @@
         {#each RAMPS as rampPreset}
           <button
             type="button"
-            class="ramp-btn"
+            class="ramp-btn font-mono"
             onclick={() => {
               config.ramp = rampPreset.value;
               onchange({ ramp: rampPreset.value });
@@ -178,7 +190,7 @@
 
   <div class="field">
     <div class="field-label">
-      <span>Background Color</span>
+      <span>Canvas Background</span>
     </div>
     <div class="color-row">
       <input
@@ -190,16 +202,16 @@
           onchange({ bgColor: val });
         }}
       />
-      <span class="hex-text">{config.bgColor}</span>
+      <span class="hex-text font-mono">{config.bgColor}</span>
     </div>
   </div>
 
-  <hr />
+  <div class="panel-divider"></div>
 
   <!-- Tonal Palette -->
   <div class="field">
     <div class="field-label">
-      <span>Tonal Ramp Palette</span>
+      <span>Tonal Palette (7 Levels)</span>
     </div>
     <PalettePicker
       bind:colors={config.levelColors}
@@ -207,13 +219,13 @@
     />
   </div>
 
-  <hr />
+  <div class="panel-divider"></div>
 
   <!-- Interactive Hover Glow -->
-  <div class="section-title">Interactive Hover Glow</div>
+  <div class="section-title pixel-subheading">HOVER GLOW MATRIX</div>
 
   <div class="toggle-row">
-    <span>Enable Hover Glow</span>
+    <span>Enable Glow</span>
     <label class="switch">
       <input
         type="checkbox"
@@ -243,14 +255,14 @@
             onchange({ hoverColor: val });
           }}
         />
-        <span class="hex-text">{config.hoverColor}</span>
+        <span class="hex-text font-mono">{config.hoverColor}</span>
       </div>
     </div>
 
     <div class="field">
       <div class="field-label">
-        <span>Glow Radius</span>
-        <span class="val">{config.hoverRadius}%</span>
+        <span>Radius</span>
+        <span class="val font-mono">{config.hoverRadius}%</span>
       </div>
       <input
         type="range"
@@ -267,8 +279,8 @@
 
     <div class="field">
       <div class="field-label">
-        <span>Fade Speed</span>
-        <span class="val">{config.fadeSpeed}</span>
+        <span>Fade Rate</span>
+        <span class="val font-mono">{config.fadeSpeed}</span>
       </div>
       <input
         type="range"
@@ -284,31 +296,31 @@
     </div>
   {/if}
 
-  <hr />
+  <div class="panel-divider"></div>
 
   <!-- Actions -->
   <div class="actions-section">
     <button
       type="button"
-      class="action-btn primary"
+      class="action-btn primary font-pixel"
       disabled={!hasMedia}
       onclick={onExportPng}
     >
-      Download PNG (Static Frame)
+      EXPORT PNG
     </button>
 
     {#if isVideo}
       <button
         type="button"
-        class="action-btn record-btn"
+        class="action-btn record-btn font-pixel"
         class:recording={isRecording}
         onclick={onToggleVideoRecord}
       >
-        {isRecording ? 'Stop & Save Video' : 'Render Video Stream'}
+        {isRecording ? 'STOP & SAVE' : 'RECORD STREAM'}
       </button>
 
       {#if recordStatusText}
-        <div class="record-status" class:active={isRecording}>
+        <div class="record-status font-mono" class:active={isRecording}>
           {recordStatusText}
         </div>
       {/if}
@@ -320,49 +332,83 @@
   .controls-panel {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
     padding: 20px;
-    background: #121215;
-    border-right: 1px solid #23232a;
+    background: #000000;
+    border-right: 1px solid #1f1f26;
     width: 320px;
     min-width: 320px;
     height: 100%;
     overflow-y: auto;
-    color: #e4e4e7;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: #ededed;
+    font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 12px;
+    position: relative;
   }
+
+  .corner-crosshair {
+    position: absolute;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    line-height: 1;
+    color: #3f3f46;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .corner-crosshair.tl { top: 6px; left: 6px; }
+  .corner-crosshair.tr { top: 6px; right: 6px; }
+  .corner-crosshair.bl { bottom: 6px; left: 6px; }
+  .corner-crosshair.br { bottom: 6px; right: 6px; }
 
   .panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 4px;
   }
 
-  .panel-header h2 {
+  .title-group {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .pixel-heading {
+    font-family: 'Geist Pixel Square', monospace;
     font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #ff5b35;
+    letter-spacing: 0.05em;
+    color: #ffffff;
     margin: 0;
   }
 
-  .badge {
-    font-size: 9px;
-    background: #2b1812;
-    color: #ff5b35;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 700;
+  .pixel-subheading {
+    font-family: 'Geist Pixel Square', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: #a1a1aa;
+    margin-top: 4px;
   }
 
-  .section-title {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #8b8b93;
-    margin-top: 4px;
+  .version-tag {
+    font-size: 9px;
+    background: #18181b;
+    border: 1px solid #27272a;
+    color: #ff5b35;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  .system-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  }
+
+  .panel-divider {
+    height: 1px;
+    background: #18181b;
+    margin: 2px 0;
   }
 
   .field {
@@ -375,29 +421,32 @@
     display: flex;
     justify-content: space-between;
     font-size: 10px;
-    color: #8b8b93;
+    color: #71717a;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-family: 'Geist Mono', monospace;
   }
 
   .field-label .val {
-    color: #e4e4e7;
-    font-weight: 600;
+    color: #f4f4f5;
   }
 
   input[type='range'] {
     width: 100%;
     accent-color: #ff5b35;
     cursor: pointer;
+    height: 4px;
+    background: #27272a;
+    border-radius: 2px;
   }
 
   select,
   input[type='text'] {
     width: 100%;
-    background: #1a1a20;
-    color: #e4e4e7;
-    border: 1px solid #282832;
-    border-radius: 6px;
+    background: #09090b;
+    color: #ededed;
+    border: 1px solid #27272a;
+    border-radius: 4px;
     padding: 7px 10px;
     font-family: inherit;
     font-size: 11px;
@@ -419,18 +468,17 @@
 
   .ramp-btn {
     font-size: 9px;
-    background: #1a1a20;
-    border: 1px solid #2a2a34;
-    color: #9d9da8;
+    background: #09090b;
+    border: 1px solid #27272a;
+    color: #a1a1aa;
     padding: 3px 6px;
-    border-radius: 4px;
+    border-radius: 3px;
     cursor: pointer;
-    font-family: inherit;
   }
 
   .ramp-btn:hover {
     border-color: #ff5b35;
-    color: #e4e4e7;
+    color: #ffffff;
   }
 
   .toggle-row {
@@ -440,13 +488,14 @@
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #8b8b93;
+    color: #71717a;
+    font-family: 'Geist Mono', monospace;
   }
 
   .switch {
     position: relative;
-    width: 36px;
-    height: 18px;
+    width: 32px;
+    height: 16px;
   }
 
   .switch input {
@@ -459,7 +508,8 @@
     position: absolute;
     cursor: pointer;
     inset: 0;
-    background: #25252e;
+    background: #18181b;
+    border: 1px solid #27272a;
     border-radius: 999px;
     transition: 0.2s;
   }
@@ -467,10 +517,10 @@
   .slider-toggle:before {
     content: '';
     position: absolute;
-    height: 12px;
-    width: 12px;
-    left: 3px;
-    top: 3px;
+    height: 10px;
+    width: 10px;
+    left: 2px;
+    top: 2px;
     background: #71717a;
     border-radius: 50%;
     transition: 0.2s;
@@ -478,11 +528,12 @@
 
   input:checked + .slider-toggle {
     background: #ff5b35;
+    border-color: #ff5b35;
   }
 
   input:checked + .slider-toggle:before {
-    transform: translateX(18px);
-    background: #fff;
+    transform: translateX(15px);
+    background: #ffffff;
   }
 
   .color-row {
@@ -492,24 +543,18 @@
   }
 
   input[type='color'] {
-    width: 36px;
-    height: 24px;
-    border: 1px solid #2b2b34;
+    width: 32px;
+    height: 22px;
+    border: 1px solid #27272a;
     background: none;
-    border-radius: 4px;
+    border-radius: 3px;
     cursor: pointer;
     padding: 1px;
   }
 
   .hex-text {
     font-size: 10px;
-    color: #8b8b93;
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid #202026;
-    margin: 4px 0;
+    color: #71717a;
   }
 
   .actions-section {
@@ -522,30 +567,28 @@
   .action-btn {
     width: 100%;
     padding: 10px;
-    border-radius: 6px;
-    font-family: inherit;
+    border-radius: 4px;
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
     cursor: pointer;
-    border: none;
-    transition: background-color 0.15s, opacity 0.15s;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
   }
 
   .action-btn.primary {
-    background: #ff5b35;
-    color: #ffffff;
+    background: #ededed;
+    color: #000000;
+    font-weight: 700;
   }
 
   .action-btn.primary:hover:not(:disabled) {
-    background: #ff704d;
+    background: #ffffff;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
   }
 
   .action-btn.record-btn {
-    background: #25252e;
-    color: #e4e4e7;
-    border: 1px solid #33333f;
+    background: #09090b;
+    color: #ededed;
+    border-color: #27272a;
   }
 
   .action-btn.record-btn.recording {
@@ -555,13 +598,13 @@
   }
 
   .action-btn:disabled {
-    opacity: 0.4;
+    opacity: 0.3;
     cursor: not-allowed;
   }
 
   .record-status {
     font-size: 10px;
-    color: #8b8b93;
+    color: #71717a;
     text-align: center;
   }
 

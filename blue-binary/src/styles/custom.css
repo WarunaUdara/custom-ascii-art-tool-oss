@@ -1,0 +1,183 @@
+/* ============================================================
+   GEIST & GEIST PIXEL TYPOGRAPHY
+   ============================================================ */
+
+@font-face {
+  font-family: 'Geist Pixel Square';
+  src: url('/custom-ascii-art-tool-oss/fonts/geist-pixel/GeistPixel-Square.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Grid';
+  src: url('/custom-ascii-art-tool-oss/fonts/geist-pixel/GeistPixel-Grid.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Circle';
+  src: url('/custom-ascii-art-tool-oss/fonts/geist-pixel/GeistPixel-Circle.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Line';
+  src: url('/custom-ascii-art-tool-oss/fonts/geist-pixel/GeistPixel-Line.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Pixel Triangle';
+  src: url('/custom-ascii-art-tool-oss/fonts/geist-pixel/GeistPixel-Triangle.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/custom-ascii-art-tool-oss/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('/custom-ascii-art-tool-oss/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallbacks for local / non-prefixed dev */
+@font-face {
+  font-family: 'Geist Pixel Square';
+  src: url('/fonts/geist-pixel/GeistPixel-Square.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Pixel Grid';
+  src: url('/fonts/geist-pixel/GeistPixel-Grid.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   DESIGN SYSTEM TOKENS (VERCEL-INSPIRED DARK PRECISION)
+   ============================================================ */
+
+:root {
+  --sl-font: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sl-color-accent: #ff5b35;
+  --sl-color-accent-high: #ff704d;
+  --sl-color-accent-low: #2b140d;
+
+  --app-bg: #000000;
+  --app-panel: #0a0a0c;
+  --app-card: #121215;
+  --app-border: #1f1f26;
+  --app-border-strong: #2f2f3a;
+  --app-text: #ededed;
+  --app-text-muted: #888888;
+  --app-accent: #ff5b35;
+  --app-accent-glow: rgba(255, 91, 53, 0.15);
+}
+
+/* Utility font classes */
+.font-pixel {
+  font-family: 'Geist Pixel Square', monospace;
+  letter-spacing: 0.04em;
+}
+
+.font-pixel-grid {
+  font-family: 'Geist Pixel Grid', monospace;
+}
+
+.font-pixel-circle {
+  font-family: 'Geist Pixel Circle', monospace;
+}
+
+.font-mono {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+}
+
+.font-sans {
+  font-family: 'Geist Sans', sans-serif;
+}
+
+/* ============================================================
+   GRID LINES & CORNER INTERSECTION CONNECTORS
+   ============================================================ */
+
+.grid-intersection-box {
+  position: relative;
+  background: var(--app-panel);
+  border: 1px solid var(--app-border);
+}
+
+.grid-intersection-box::before,
+.grid-intersection-box::after {
+  content: '+';
+  position: absolute;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  line-height: 1;
+  color: #52525b;
+  pointer-events: none;
+}
+
+.grid-intersection-box::before {
+  top: -5px;
+  left: -5px;
+}
+
+.grid-intersection-box::after {
+  bottom: -5px;
+  right: -5px;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
