@@ -144,3 +144,92 @@ html, body {
 .font-sans {
   font-family: var(--font-sans);
 }
+
+/* ============================================================
+   PRECISION CORNER TICKS DECORATORS (HARDWARE ENGINEERING)
+   ============================================================ */
+
+.corner-ticks {
+  position: relative;
+}
+
+.corner-ticks > .tick-tl,
+.corner-ticks > .tick-tr,
+.corner-ticks > .tick-bl,
+.corner-ticks > .tick-br {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  transition: border-color 0.15s ease, opacity 0.15s ease;
+}
+
+/* Top-Left */
+.corner-ticks > .tick-tl {
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid var(--tick-color, var(--app-accent));
+  border-left: 1px solid var(--tick-color, var(--app-accent));
+}
+
+/* Top-Right */
+.corner-ticks > .tick-tr {
+  top: -1px;
+  right: -1px;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid var(--tick-color, var(--app-accent));
+  border-right: 1px solid var(--tick-color, var(--app-accent));
+}
+
+/* Bottom-Left */
+.corner-ticks > .tick-bl {
+  bottom: -1px;
+  left: -1px;
+  width: 5px;
+  height: 5px;
+  border-bottom: 1px solid var(--tick-color, var(--app-accent));
+  border-left: 1px solid var(--tick-color, var(--app-accent));
+}
+
+/* Bottom-Right */
+.corner-ticks > .tick-br {
+  bottom: -1px;
+  right: -1px;
+  width: 5px;
+  height: 5px;
+  border-bottom: 1px solid var(--tick-color, var(--app-accent));
+  border-right: 1px solid var(--tick-color, var(--app-accent));
+}
+
+/* Subtle Corner Ticks (2 Diagonal Corners) */
+.subtle-corners {
+  position: relative;
+}
+
+.subtle-corners::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid var(--tick-color, var(--app-accent));
+  border-left: 1px solid var(--tick-color, var(--app-accent));
+  pointer-events: none;
+  z-index: 5;
+}
+
+.subtle-corners::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 5px;
+  height: 5px;
+  border-bottom: 1px solid var(--tick-color, var(--app-accent));
+  border-right: 1px solid var(--tick-color, var(--app-accent));
+  pointer-events: none;
+  z-index: 5;
+}

@@ -58,13 +58,17 @@
 
   {#if !hasMedia}
     <div
-      class="dropzone-box"
+      class="dropzone-box corner-ticks"
       onclick={() => fileInput?.click()}
       onkeydown={(e) => e.key === 'Enter' && fileInput?.click()}
       tabindex="0"
       role="button"
       aria-label="Upload Image or Video"
     >
+      <span class="tick-tl"></span>
+      <span class="tick-tr"></span>
+      <span class="tick-bl"></span>
+      <span class="tick-br"></span>
       <div class="drop-icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
@@ -83,7 +87,11 @@
   </div>
 
   {#if hasMedia && stats}
-    <div class="telemetry-hud font-mono">
+    <div class="telemetry-hud font-mono corner-ticks">
+      <span class="tick-tl"></span>
+      <span class="tick-tr"></span>
+      <span class="tick-bl"></span>
+      <span class="tick-br"></span>
       <div class="hud-item grid-metric">
         <span class="hud-label">GRID</span>
         <span class="hud-value">{stats.cols}×{stats.rows}</span>
