@@ -609,11 +609,23 @@
 
   @media (max-width: 768px) {
     .hands-viewport {
-      height: 280px;
+      height: 240px;
+      opacity: 0.55;
     }
     .hand-wrapper {
-      width: 42%;
-      max-width: 340px;
+      width: 46%;
+      max-width: 260px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hands-viewport {
+      height: 180px;
+      opacity: 0.40;
+    }
+    .hand-wrapper {
+      width: 48%;
+      max-width: 180px;
     }
   }
 </style>

@@ -217,7 +217,10 @@ const schemaData = {
   .header-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
   }
 
   .brand-logo {
@@ -226,8 +229,9 @@ const schemaData = {
     gap: 4px;
     color: #ffffff;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.05em;
+    flex-shrink: 0;
   }
 
   .brand-bracket {
@@ -243,12 +247,24 @@ const schemaData = {
   .header-divider {
     color: #27272a;
     font-size: 11px;
+    flex-shrink: 0;
   }
 
   .tool-selector {
     display: flex;
     align-items: center;
     gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    padding: 2px 0;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .tool-selector::-webkit-scrollbar {
+    display: none;
   }
 
   .tool-tab {
@@ -258,6 +274,8 @@ const schemaData = {
     text-decoration: none;
     color: #71717a;
     transition: all 0.15s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .tool-tab:hover {
@@ -271,15 +289,10 @@ const schemaData = {
     font-weight: 700;
   }
 
-  .tool-tab.upcoming {
-    color: #52525b;
-    border: 1px dashed #27272a;
-    cursor: default;
-  }
-
   .header-center {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
   }
 
   .system-status {
@@ -292,6 +305,7 @@ const schemaData = {
     background: #09090b;
     border: 1px solid #1f1f26;
     padding: 2px 8px;
+    white-space: nowrap;
   }
 
   .status-indicator {
@@ -311,6 +325,7 @@ const schemaData = {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
   }
 
   .header-btn {
@@ -324,6 +339,7 @@ const schemaData = {
     font-size: 10px;
     text-decoration: none;
     transition: all 0.15s ease;
+    white-space: nowrap;
   }
 
   .header-btn:hover {
@@ -343,9 +359,27 @@ const schemaData = {
     position: relative;
   }
 
-  @media (max-width: 768px) {
-    .tool-selector,
+  @media (max-width: 860px) {
     .header-center {
+      display: none;
+    }
+    .app-header {
+      padding: 0 10px;
+      gap: 8px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .header-divider {
+      display: none;
+    }
+    .brand-name {
+      display: none;
+    }
+    .brand-bracket {
+      display: none;
+    }
+    .header-btn span {
       display: none;
     }
   }

@@ -285,4 +285,34 @@
   .hud-divider {
     color: #27272f;
   }
+
+  @media (max-width: 860px) {
+    .stage-top-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      padding: 8px 12px;
+    }
+    .export-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4px;
+    }
+    .stage-btn {
+      padding: 6px 4px;
+      font-size: 9px;
+      justify-content: center;
+    }
+    .canvas-display-wrapper {
+      padding: 12px;
+    }
+    .telemetry-hud {
+      bottom: 8px;
+      padding: 4px 8px;
+      gap: 6px;
+      font-size: 8px;
+      max-width: calc(100% - 16px);
+      overflow-x: auto;
+    }
+  }
 </style>

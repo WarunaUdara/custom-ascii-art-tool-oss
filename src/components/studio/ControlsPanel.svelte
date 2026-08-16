@@ -662,4 +662,16 @@
     color: #ff5b35;
     font-weight: 600;
   }
+
+  @media (max-width: 860px) {
+    .controls-panel {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid #1f1f26;
+      padding: 16px;
+    }
+  }
 </style>

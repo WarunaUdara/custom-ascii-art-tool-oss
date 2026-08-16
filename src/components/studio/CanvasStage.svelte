@@ -283,4 +283,23 @@
     border-color: #ff5b35;
     color: #ffffff;
   }
+
+  @media (max-width: 860px) {
+    .stage-container {
+      padding: 12px;
+      min-height: 340px;
+    }
+    .telemetry-hud {
+      bottom: 8px;
+      padding: 4px 8px;
+      gap: 6px;
+      font-size: 8px;
+      max-width: calc(100% - 16px);
+      overflow-x: auto;
+    }
+    .dropzone-box {
+      padding: 32px 16px;
+      width: 100%;
+    }
+  }
 </style>

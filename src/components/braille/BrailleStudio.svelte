@@ -195,4 +195,27 @@
     position: relative;
     overflow: hidden;
   }
+
+  @media (max-width: 860px) {
+    .braille-studio-container {
+      flex-direction: column;
+      height: auto;
+      min-height: calc(100vh - 44px);
+      overflow-y: auto;
+    }
+
+    .sidebar-panel {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid #1f1f26;
+    }
+
+    .stage-container {
+      width: 100%;
+      min-height: 480px;
+    }
+  }
 </style>

@@ -61,6 +61,26 @@
     const y = ((e.clientY - rect.top) / rect.height) * (stats?.subpixelH || 100);
     onPaintMove(x, y);
   }
+
+  function handleTouchStart(e: TouchEvent) {
+    if (config.mode !== 'draw' || !canvasRef || !e.touches[0]) return;
+    e.preventDefault();
+    const rect = canvasRef.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = ((touch.clientX - rect.left) / rect.width) * (config.cols * 2);
+    const y = ((touch.clientY - rect.top) / rect.height) * (stats?.subpixelH || 100);
+    onPaintStart(x, y);
+  }
+
+  function handleTouchMove(e: TouchEvent) {
+    if (config.mode !== 'draw' || !canvasRef || !e.touches[0]) return;
+    e.preventDefault();
+    const rect = canvasRef.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = ((touch.clientX - rect.left) / rect.width) * (config.cols * 2);
+    const y = ((touch.clientY - rect.top) / rect.height) * (stats?.subpixelH || 100);
+    onPaintMove(x, y);
+  }
 </script>
 
 <div class="terminal-stage-container" role="region" aria-label="ANSI Braille Terminal Stage">
@@ -176,6 +196,10 @@
           onmousemove={handleMouseMove}
           onmouseup={onPaintEnd}
           onmouseleave={onPaintEnd}
+          ontouchstart={handleTouchStart}
+          ontouchmove={handleTouchMove}
+          ontouchend={onPaintEnd}
+          ontouchcancel={onPaintEnd}
         ></canvas>
       </div>
     </div>
@@ -421,5 +445,35 @@
 
   .hud-divider {
     color: #27272f;
+  }
+
+  @media (max-width: 860px) {
+    .stage-top-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      padding: 8px 12px;
+    }
+    .export-buttons-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .stage-btn {
+      padding: 6px 4px;
+      font-size: 9px;
+      justify-content: center;
+    }
+    .terminal-window-wrapper {
+      padding: 12px;
+    }
+    .telemetry-hud {
+      bottom: 8px;
+      padding: 4px 8px;
+      gap: 6px;
+      font-size: 8px;
+      max-width: calc(100% - 16px);
+      overflow-x: auto;
+    }
   }
 </style>
