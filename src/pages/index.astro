@@ -1,19 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Studio from '../components/studio/Studio.svelte';
+import HeroSection from '../components/home/HeroSection.svelte';
 ---
 
-<Layout title="Dither & ASCII Studio Engine // Retro Matrix & Halftone Tool">
-  <div class="studio-root-container">
-    <Studio client:only="svelte" />
+<Layout
+  title="ASCII & Dither Studio Engine — Real-time Retro Matrix & Halftone Tool"
+  activeTab="home"
+>
+  <div class="landing-page-root">
+    <HeroSection client:load />
   </div>
 </Layout>
 
 <style>
-  .studio-root-container {
+  .landing-page-root {
     display: flex;
     width: 100%;
     height: 100%;
+    flex: 1;
     overflow: hidden;
   }
 </style>

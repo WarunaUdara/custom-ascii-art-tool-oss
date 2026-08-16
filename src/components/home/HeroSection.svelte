@@ -31,6 +31,14 @@
       desc: 'Fine-grained signal reactivity bypassing Virtual DOM diffing for 120Hz slider updates.',
     },
   ];
+
+  function handleLaunch() {
+    if (onLaunchStudio) {
+      onLaunchStudio();
+    } else if (typeof window !== 'undefined') {
+      window.location.href = `${baseUrl}/studio/`;
+    }
+  }
 </script>
 
 <section class="hero-section">
@@ -74,16 +82,21 @@
 
     <!-- CTAs -->
     <div class="hero-actions">
-      <button
-        type="button"
+      <a
+        href={`${baseUrl}/studio/`}
         class="cta-btn primary font-pixel"
-        onclick={onLaunchStudio}
+        onclick={(e) => {
+          if (onLaunchStudio) {
+            e.preventDefault();
+            onLaunchStudio();
+          }
+        }}
       >
         <span>LAUNCH STUDIO</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </button>
+      </a>
 
       <a
         href="https://github.com/WarunaUdara/custom-ascii-art-tool-oss"

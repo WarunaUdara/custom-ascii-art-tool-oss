@@ -5,12 +5,14 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  activeTab?: 'home' | 'studio';
 }
 
 const {
   title = 'ASCII & Dither Studio Engine — Real-time Retro Matrix & Halftone Tool',
   description = 'Browser-based image and video dithering studio. Transform photos, animations, and video streams into retro 7-level, Bayer matrix, Floyd-Steinberg, Atkinson, and ASCII glyph art with 60 FPS real-time export.',
   image = '/og-image.png',
+  activeTab = 'home',
 } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -86,10 +88,21 @@ const schemaData = {
             <span class="brand-bracket">]</span>
           </a>
           <span class="header-divider">|</span>
-          <div class="tool-selector">
-            <a href={`${baseUrl}/`} class="tool-tab active font-mono">01. DITHER MATRIX</a>
+          <nav class="tool-selector">
+            <a
+              href={`${baseUrl}/`}
+              class={`tool-tab font-mono ${activeTab === 'home' ? 'active' : ''}`}
+            >
+              00. OVERVIEW
+            </a>
+            <a
+              href={`${baseUrl}/studio/`}
+              class={`tool-tab font-mono ${activeTab === 'studio' ? 'active' : ''}`}
+            >
+              01. DITHER STUDIO
+            </a>
             <span class="tool-tab upcoming font-mono" title="More creative tools coming soon">+ TOOL 02</span>
-          </div>
+          </nav>
         </div>
 
         <div class="header-center">
@@ -185,16 +198,22 @@ const schemaData = {
 
   .tool-tab {
     font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 3px;
+    padding: 4px 8px;
     letter-spacing: 0.02em;
     text-decoration: none;
+    color: #71717a;
+    transition: all 0.15s ease;
+  }
+
+  .tool-tab:hover {
+    color: #ededed;
   }
 
   .tool-tab.active {
     background: #18181b;
-    color: #ededed;
+    color: #ff5b35;
     border: 1px solid #27272a;
+    font-weight: 700;
   }
 
   .tool-tab.upcoming {
@@ -218,14 +237,12 @@ const schemaData = {
     background: #09090b;
     border: 1px solid #1f1f26;
     padding: 2px 8px;
-    border-radius: 999px;
   }
 
   .status-indicator {
     width: 5px;
     height: 5px;
     background: #22c55e;
-    border-radius: 50%;
     box-shadow: 0 0 6px rgba(34, 197, 94, 0.8);
     animation: pulse 2s infinite;
   }
@@ -248,7 +265,6 @@ const schemaData = {
     padding: 4px 8px;
     background: #09090b;
     border: 1px solid #27272a;
-    border-radius: 3px;
     color: #a1a1aa;
     font-size: 10px;
     text-decoration: none;

@@ -3,17 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import Studio from '../components/studio/Studio.svelte';
 ---
 
-<Layout title="Dither & ASCII Studio Engine // Retro Matrix & Halftone Tool">
-  <div class="studio-root-container">
-    <Studio client:only="svelte" />
+<Layout
+  title="Interactive Studio Workspace // ASCII & Dither Engine"
+  activeTab="studio"
+>
+  <div class="studio-page-root">
+    <Studio client:only="svelte" initialView="studio" />
   </div>
 </Layout>
 
 <style>
-  .studio-root-container {
+  .studio-page-root {
     display: flex;
     width: 100%;
     height: 100%;
+    flex: 1;
     overflow: hidden;
   }
 </style>
