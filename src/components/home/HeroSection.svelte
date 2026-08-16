@@ -1,6 +1,7 @@
 <script lang="ts">
   import DecryptedText from '../ui/DecryptedText.svelte';
   import DitherWaves from './DitherWaves.svelte';
+  import AdamHandsDither from './AdamHandsDither.svelte';
 
   interface Props {
     onLaunchStudio?: () => void;
@@ -50,6 +51,9 @@
 
   <!-- Soft Ambient Contrast Vignette -->
   <div class="vignette-overlay"></div>
+
+  <!-- Dual Michelangelo Adam Reaching Hands Parallax ASCII Dither Layer -->
+  <AdamHandsDither />
 
   <!-- Subtle Background Grid Pattern Overlay -->
   <div class="grid-backdrop"></div>
