@@ -19,7 +19,9 @@
         target.target !== '_blank' &&
         url.pathname !== window.location.pathname
       ) {
-        if (url.pathname.includes('studio')) {
+        if (url.pathname.includes('tone-matrix')) {
+          destinationLabel = 'LOADING TONE MATRIX STUDIO...';
+        } else if (url.pathname.includes('studio')) {
           destinationLabel = 'LOADING DITHER STUDIO...';
         } else {
           destinationLabel = 'ROUTING TO OVERVIEW...';

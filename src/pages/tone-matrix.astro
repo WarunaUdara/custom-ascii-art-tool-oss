@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToneMarksStudio from '../components/marks/ToneMarksStudio.svelte';
+---
+
+<Layout
+  title="Tone Matrix & Custom Marks Studio // Multi-Level Blending Engine"
+  description="Design custom halftone matrix artwork with multi-level midtones, drag-and-drop mark textures, 10 pixel blending modes, random tone switching, and multi-line typography engine."
+  activeTab="marks"
+>
+  <div class="marks-page-root">
+    <ToneMarksStudio client:only="svelte" />
+  </div>
+</Layout>
+
+<style>
+  .marks-page-root {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
+</style>

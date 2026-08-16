@@ -6,7 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
-  activeTab?: 'home' | 'studio';
+  activeTab?: 'home' | 'studio' | 'marks';
 }
 
 const {
@@ -118,7 +118,20 @@ const schemaData = {
               )}
               01. DITHER STUDIO
             </a>
-            <span class="tool-tab upcoming font-mono" title="More creative tools coming soon">+ TOOL 02</span>
+            <a
+              href={`${baseUrl}/tone-matrix/`}
+              class={`tool-tab font-mono ${activeTab === 'marks' ? 'active corner-ticks' : ''}`}
+            >
+              {activeTab === 'marks' && (
+                <>
+                  <span class="tick-tl"></span>
+                  <span class="tick-tr"></span>
+                  <span class="tick-bl"></span>
+                  <span class="tick-br"></span>
+                </>
+              )}
+              02. TONE MATRIX
+            </a>
           </nav>
         </div>
 
