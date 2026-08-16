@@ -14,15 +14,15 @@
   }
 
   let {
-    waveSpeed = 0.04,
+    waveSpeed = 0.045,
     waveFrequency = 2.5,
-    waveAmplitude = 0.32,
+    waveAmplitude = 0.34,
     waveColor = [1.0, 0.357, 0.208], // #ff5b35
     colorNum = 4.0,
-    pixelSize = 2.0,
+    pixelSize = 2.2,
     disableAnimation = false,
     enableMouseInteraction = true,
-    mouseRadius = 0.35,
+    mouseRadius = 0.38,
   }: Props = $props();
 
   let canvasRef: HTMLCanvasElement | null = $state(null);
@@ -110,7 +110,6 @@
     }
 
     float getBayerValue(int index) {
-      // 8x8 Bayer matrix matrix values normalized to [0..1]
       if (index == 0) return 0.0/64.0;
       if (index == 1) return 48.0/64.0;
       if (index == 2) return 12.0/64.0;
@@ -206,10 +205,11 @@
         f -= 0.5 * effect;
       }
 
-      vec3 baseCol = mix(vec3(0.02, 0.02, 0.025), waveColor, clamp(f, 0.0, 1.0));
+      vec3 darkBackground = vec3(0.012, 0.012, 0.018);
+      vec3 baseCol = mix(darkBackground, waveColor, clamp(f * 0.95, 0.0, 1.0));
       vec3 ditheredCol = applyDither(gl_FragCoord.xy, baseCol);
 
-      gl_FragColor = vec4(ditheredCol, 0.45); // Subtle translucent backdrop
+      gl_FragColor = vec4(ditheredCol, 0.38); // Radiant and balanced vibrancy
     }
   `;
 

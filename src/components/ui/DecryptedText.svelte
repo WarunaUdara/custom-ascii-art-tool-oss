@@ -156,13 +156,9 @@
   <span class="sr-only">{text}</span>
   <span aria-hidden="true" class="letters-wrapper">
     {#each displayText.split('') as char, i}
-      {#if char === ' '}
-        <span class="char-space">&nbsp;</span>
-      {:else}
-        <span
-          class="char-glyph {revealedIndices.has(i) || (!isAnimating && isDecrypted) ? className : `encrypted ${encryptedClass}`}"
-        >{char}</span>
-      {/if}
+      <span
+        class="char-glyph {revealedIndices.has(i) || (!isAnimating && isDecrypted) ? className : `encrypted ${encryptedClass}`}"
+      >{char === ' ' ? '\u00A0' : char}</span>
     {/each}
   </span>
 </span>
@@ -174,6 +170,7 @@
     user-select: none;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+    letter-spacing: inherit;
   }
 
   .sr-only {
@@ -192,24 +189,18 @@
     display: inline-flex;
     align-items: baseline;
     white-space: nowrap;
+    letter-spacing: inherit;
   }
 
   .char-glyph {
     display: inline-block;
     font-variant-numeric: tabular-nums;
-    min-width: 1ch;
-    text-align: center;
     transition: color 0.08s ease;
-  }
-
-  .char-space {
-    display: inline-block;
-    width: 0.5ch;
   }
 
   .char-glyph.encrypted {
     color: #ff5b35;
-    opacity: 0.85;
-    text-shadow: 0 0 8px rgba(255, 91, 53, 0.4);
+    opacity: 0.9;
+    text-shadow: 0 0 10px rgba(255, 91, 53, 0.5);
   }
 </style>

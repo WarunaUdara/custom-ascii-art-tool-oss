@@ -1,15 +1,12 @@
 <script lang="ts">
   import DecryptedText from '../ui/DecryptedText.svelte';
   import DitherWaves from './DitherWaves.svelte';
-  import CustomDock from '../ui/CustomDock.svelte';
 
   interface Props {
     onLaunchStudio?: () => void;
   }
 
   let { onLaunchStudio }: Props = $props();
-
-  let disableWaves = $state(false);
 
   const baseUrl = (typeof window !== 'undefined' ? (window as any).__ASTRO_BASE_URL__ : '') || '/custom-ascii-art-tool-oss';
 
@@ -35,25 +32,24 @@
       desc: 'Fine-grained signal reactivity bypassing Virtual DOM diffing for 120Hz slider updates.',
     },
   ];
-
-  function toggleWaves() {
-    disableWaves = !disableWaves;
-  }
 </script>
 
 <section class="hero-section">
   <!-- Interactive WebGL Dither Waves Background Animation -->
   <DitherWaves
     waveSpeed={0.045}
-    waveFrequency={2.4}
-    waveAmplitude={0.32}
+    waveFrequency={2.5}
+    waveAmplitude={0.34}
     waveColor={[1.0, 0.357, 0.208]}
     colorNum={4.0}
     pixelSize={2.2}
-    disableAnimation={disableWaves}
+    disableAnimation={false}
     enableMouseInteraction={true}
-    mouseRadius={0.4}
+    mouseRadius={0.38}
   />
+
+  <!-- Soft Ambient Contrast Vignette -->
+  <div class="vignette-overlay"></div>
 
   <!-- Subtle Background Grid Pattern Overlay -->
   <div class="grid-backdrop"></div>
@@ -138,9 +134,6 @@
       {/each}
     </div>
   </div>
-
-  <!-- Customized Floating Dock -->
-  <CustomDock onToggleWaves={toggleWaves} isStudioRoute={false} />
 </section>
 
 <style>
@@ -153,10 +146,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 48px 24px 80px;
+    padding: 48px 24px 60px;
     box-sizing: border-box;
     margin: 0 auto;
     overflow: hidden;
+  }
+
+  .vignette-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.8) 100%);
+    pointer-events: none;
+    z-index: 2;
   }
 
   .grid-backdrop {
@@ -166,9 +167,9 @@
       linear-gradient(to right, #14141a 1px, transparent 1px),
       linear-gradient(to bottom, #14141a 1px, transparent 1px);
     background-size: 32px 32px;
-    opacity: 0.45;
+    opacity: 0.35;
     pointer-events: none;
-    z-index: 2;
+    z-index: 3;
   }
 
   .hero-content {
@@ -195,10 +196,10 @@
     align-items: center;
     gap: 8px;
     padding: 4px 12px;
-    background: rgba(9, 9, 12, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid #22222a;
+    background: rgba(9, 9, 12, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid #27272f;
     font-size: 11px;
     color: #a1a1aa;
     letter-spacing: 0.05em;
@@ -254,11 +255,11 @@
     max-width: 640px;
     font-size: 14px;
     line-height: 1.6;
-    color: #a1a1aa;
+    color: #d4d4d8;
     letter-spacing: -0.01em;
     margin: 0 auto;
     text-align: center;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
   }
 
   .hero-actions {
@@ -274,7 +275,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 22px;
+    padding: 12px 24px;
     font-size: 11px;
     cursor: pointer;
     border: 1px solid transparent;
@@ -291,22 +292,22 @@
 
   .cta-btn.primary:hover {
     background: #ffffff;
-    box-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
   }
 
   .cta-btn.secondary {
-    background: rgba(9, 9, 12, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(9, 9, 12, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: #ededed;
-    border-color: #27272a;
+    border-color: #27272f;
   }
 
   .cta-btn.secondary:hover {
     border-color: #ff5b35;
     color: #ffffff;
-    background: #121216;
+    background: #14141a;
   }
 
   .features-grid {
@@ -314,14 +315,14 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     width: 100%;
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   .feature-card {
-    background: rgba(9, 9, 12, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid #1f1f26;
+    background: rgba(9, 9, 12, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid #22222a;
     padding: 18px 16px;
     text-align: left;
     display: flex;
@@ -351,7 +352,7 @@
 
   .card-desc {
     font-size: 11px;
-    color: #71717a;
+    color: #a1a1aa;
     line-height: 1.5;
   }
 

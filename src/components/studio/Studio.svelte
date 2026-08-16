@@ -10,7 +10,6 @@
   import ControlsPanel from './ControlsPanel.svelte';
   import CanvasStage from './CanvasStage.svelte';
   import HeroSection from '../home/HeroSection.svelte';
-  import CustomDock from '../ui/CustomDock.svelte';
 
   interface Props {
     initialView?: 'hero' | 'studio';
@@ -178,8 +177,6 @@
         {stats}
         onFileSelected={handleFileSelected}
       />
-
-      <CustomDock isStudioRoute={true} />
     </div>
   </div>
 </div>
