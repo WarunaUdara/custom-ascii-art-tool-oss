@@ -1,40 +1,36 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: Dither & ASCII Studio Engine
+description: High-performance browser-based Dithering, Jitter and ASCII art library built with Astro, Svelte 5, and Canvas 2D.
+template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Transform images and video streams into retro dithered ASCII and matrix artwork at 60 FPS.
   image:
     file: ../../assets/houston.webp
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Launch Interactive Studio
+      link: /studio/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
+    - text: Explore Algorithms
+      link: /algorithms/quantization/
+      icon: open-book
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## Architectural Pillars
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="Svelte 5 Runes Reactive UI" icon="rocket">
+		Fine-grained reactivity without Virtual DOM reconciliation for smooth 120Hz slider adjustments.
 	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
+	<Card title="Multiple Dithering Kernels" icon="puzzle">
+		Bayer 4x4/8x8 Ordered, Floyd-Steinberg, Atkinson, 7-Level Quantization, and Stochastic Noise Jitter.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Video Stream Pipeline" icon="laptop">
+		Real-time video frame processing with hardware-accelerated MediaRecorder WebM/MP4 export.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Framework-Agnostic Core" icon="seti:typescript">
+		Pure TypeScript core library ready for standalone NPM distribution or WASM/Rust acceleration.
 	</Card>
 </CardGrid>
