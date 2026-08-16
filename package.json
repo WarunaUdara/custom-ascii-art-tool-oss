@@ -10,7 +10,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.41.7",
     "@astrojs/svelte": "^9.0.1",
     "astro": "^7.1.6",
     "geist": "^1.7.2",

@@ -123,9 +123,9 @@
   .studio-wrapper {
     display: flex;
     width: 100%;
-    height: 100vh;
-    max-height: 100vh;
-    background: #08080a;
+    height: 100%;
+    flex: 1;
+    background: #000000;
     overflow: hidden;
   }
 
@@ -133,7 +133,8 @@
     .studio-wrapper {
       flex-direction: column;
       height: auto;
-      min-height: 100vh;
+      min-height: 100%;
+      overflow-y: auto;
     }
   }
 </style>

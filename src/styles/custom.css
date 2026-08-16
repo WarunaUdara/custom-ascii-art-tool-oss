@@ -1,6 +1,10 @@
+/* ============================================================
+   GEIST & GEIST PIXEL TYPOGRAPHY (BUNDLED VIA VITE ASSET PIPELINE)
+   ============================================================ */
+
 @font-face {
   font-family: 'Geist Pixel Square';
-  src: url('/fonts/geist-pixel/GeistPixel-Square.woff2') format('woff2');
+  src: url('../../public/fonts/geist-pixel/GeistPixel-Square.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -8,7 +12,7 @@
 
 @font-face {
   font-family: 'Geist Pixel Grid';
-  src: url('/fonts/geist-pixel/GeistPixel-Grid.woff2') format('woff2');
+  src: url('../../public/fonts/geist-pixel/GeistPixel-Grid.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -16,7 +20,7 @@
 
 @font-face {
   font-family: 'Geist Pixel Circle';
-  src: url('/fonts/geist-pixel/GeistPixel-Circle.woff2') format('woff2');
+  src: url('../../public/fonts/geist-pixel/GeistPixel-Circle.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -24,7 +28,7 @@
 
 @font-face {
   font-family: 'Geist Pixel Line';
-  src: url('/fonts/geist-pixel/GeistPixel-Line.woff2') format('woff2');
+  src: url('../../public/fonts/geist-pixel/GeistPixel-Line.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -32,7 +36,7 @@
 
 @font-face {
   font-family: 'Geist Pixel Triangle';
-  src: url('/fonts/geist-pixel/GeistPixel-Triangle.woff2') format('woff2');
+  src: url('../../public/fonts/geist-pixel/GeistPixel-Triangle.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -40,7 +44,7 @@
 
 @font-face {
   font-family: 'Geist Mono';
-  src: url('/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+  src: url('../../public/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -48,37 +52,7 @@
 
 @font-face {
   font-family: 'Geist Sans';
-  src: url('/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Fallbacks for local / non-prefixed dev */
-@font-face {
-  font-family: 'Geist Pixel Square';
-  src: url('/fonts/geist-pixel/GeistPixel-Square.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geist Pixel Grid';
-  src: url('/fonts/geist-pixel/GeistPixel-Grid.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geist Sans';
-  src: url('/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+  src: url('../../public/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -89,80 +63,83 @@
    ============================================================ */
 
 :root {
-  --sl-font: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --sl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sl-color-accent: #ff5b35;
-  --sl-color-accent-high: #ff704d;
-  --sl-color-accent-low: #2b140d;
-
   --app-bg: #000000;
-  --app-panel: #0a0a0c;
-  --app-card: #121215;
+  --app-panel: #09090b;
+  --app-card: #121216;
   --app-border: #1f1f26;
   --app-border-strong: #2f2f3a;
+  --app-border-highlight: #3f3f4c;
   --app-text: #ededed;
   --app-text-muted: #888888;
   --app-accent: #ff5b35;
-  --app-accent-glow: rgba(255, 91, 53, 0.15);
+  --app-accent-hover: #ff704d;
+  --app-accent-glow: rgba(255, 91, 53, 0.2);
+
+  --font-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-pixel: 'Geist Pixel Square', monospace;
+  --font-pixel-grid: 'Geist Pixel Grid', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Utility font classes */
 .font-pixel {
-  font-family: 'Geist Pixel Square', monospace;
+  font-family: var(--font-pixel);
   letter-spacing: 0.04em;
 }
 
 .font-pixel-grid {
-  font-family: 'Geist Pixel Grid', monospace;
-}
-
-.font-pixel-circle {
-  font-family: 'Geist Pixel Circle', monospace;
+  font-family: var(--font-pixel-grid);
 }
 
 .font-mono {
-  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
 }
 
 .font-sans {
-  font-family: 'Geist Sans', sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* ============================================================
    GRID LINES & CORNER INTERSECTION CONNECTORS
    ============================================================ */
 
-.grid-intersection-box {
-  position: relative;
-  background: var(--app-panel);
-  border: 1px solid var(--app-border);
-}
-
-.grid-intersection-box::before,
-.grid-intersection-box::after {
-  content: '+';
+.grid-corner-crosshair {
   position: absolute;
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1;
-  color: #52525b;
+  color: #3f3f46;
   pointer-events: none;
+  z-index: 10;
+  user-select: none;
 }
-
-.grid-intersection-box::before {
-  top: -5px;
-  left: -5px;
-}
-
-.grid-intersection-box::after {
-  bottom: -5px;
-  right: -5px;
-}
+.grid-corner-crosshair.tl { top: 6px; left: 6px; }
+.grid-corner-crosshair.tr { top: 6px; right: 6px; }
+.grid-corner-crosshair.bl { bottom: 6px; left: 6px; }
+.grid-corner-crosshair.br { bottom: 6px; right: 6px; }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -171,7 +148,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: #27272a;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
